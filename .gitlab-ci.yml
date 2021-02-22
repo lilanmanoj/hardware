@@ -1,8 +1,5 @@
 image: php:7.4
 
-# services:
-#   - mysql:latest
-
 before_script:
   - apt-get update -qq
   - apt-get install -y -qq git
