@@ -7,7 +7,8 @@ before_script:
   - php composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
   - cp .env.testing .env
   - php artisan key:generate
-  - touch storage/app/db.sqlite
+  - touch database/db.sqlite
+  - pwd
   - php artisan migrate
 
 test:
