@@ -6,22 +6,14 @@ image: php:7.4
 before_script:
   - apt-get update -qq
   - apt-get install -y -qq git
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+  - cp .env.testing .env
+  - php artisan key:generate
+  - touch storage/app/db.sqlite
+  - php artisan migrate
 
-# test:
-#   stage: test
-#   script:
-#   - curl -sS https://getcomposer.org/installer | php
-#   - php composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-#   - cp .env.example .env
-#   - php artisan key:generate
-#   - php artisan migrate
-#   - php artisan test
-
-deploy:
-  stage: deploy
+test:
+  stage: test
   script:
-  - apt-get install -y ruby
-  - gem install dpl
-  - dpl heroku api --app $HEROKU_APP_STAGING --api-key $HEROKU_API_KEY
-  # only: 
-  # - master
+  - php artisan test
