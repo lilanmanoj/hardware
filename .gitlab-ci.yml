@@ -12,10 +12,12 @@ test:
   - cp .env.example .env
   - php artisan key:generate
   - vendor/bin/phpunit tests
-  
+
 deploy:
   stage: deploy
   script:
   - apt-get install -y ruby
   - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
+  only: 
+  - master
