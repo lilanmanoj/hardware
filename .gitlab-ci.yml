@@ -1,17 +1,21 @@
 image: php:7.4
 
+# services:
+#   - mysql:latest
+
 before_script:
   - apt-get update -qq
   - apt-get install -y -qq git
 
-test:
-  stage: test
-  script:
-  - curl -sS https://getcomposer.org/installer | php
-  - php composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-  - cp .env.example .env
-  - php artisan key:generate
-  - php artisan test
+# test:
+#   stage: test
+#   script:
+#   - curl -sS https://getcomposer.org/installer | php
+#   - php composer.phar install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+#   - cp .env.example .env
+#   - php artisan key:generate
+#   - php artisan migrate
+#   - php artisan test
 
 deploy:
   stage: deploy
@@ -19,5 +23,5 @@ deploy:
   - apt-get install -y ruby
   - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_APP_STAGING --api-key=$HEROKU_API_KEY
-  only: 
-  - master
+  # only: 
+  # - master
