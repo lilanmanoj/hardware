@@ -6,17 +6,46 @@ use App\Http\Controllers\Controller;
 use App\Models\Stores\Store;
 use App\Models\Stores\StoresRepository;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StoreController extends Controller
 {
     /**
+     * @var $model
+     */
+    protected $model;
+
+    /**
+     * @var $repository
+     */
+    protected $repository;
+
+    /**
+     * Contruct
+     * 
+     * @param $model
+     * @param $repository
+     */
+    public function __construct(Store $model, StoresRepository $repository)
+    {
+        $this->model = $model;
+        $this->repository = $repository;
+    }
+
+    /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $stores = $this->repository->searchPaginate($request->input('query'));
+
+        $data = [
+            'items' => $stores
+        ];
+
+        return Inertia::render('Stores', $data);
     }
 
     /**

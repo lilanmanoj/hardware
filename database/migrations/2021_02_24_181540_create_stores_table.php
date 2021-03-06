@@ -17,12 +17,15 @@ class CreateStoresTable extends Migration
             $table->id();
             $table->string('name', 100)->nullable(false);
             $table->text('address', 100);
+            $table->text('address_formatted', 100);
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->string('nic', 20);
-            $table->string('owner_name', 100);
+            $table->string('fixed_no', 10);
+            $table->string('mobile_no', 10);
+            $table->string('fax_no', 10);
+            $table->string('email', 60);
+            $table->unsignedBigInteger('admin_id')->nullable(true);
             $table->string('br_no', 60);
-            $table->double('credit_limit')->nullable(false)->default(0);
             $table->timestamps();
         });
     }
