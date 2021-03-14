@@ -33,5 +33,5 @@ Route::group([
     'prefix' =>'manage',
     'as' => 'manage.'
 ], function () {
-    Route::resource('stores', 'StoreController')->only([ 'index', 'create' ]);
+    Route::resource('stores', 'StoreController')->only([ 'index', 'create', 'store' ]);
 });

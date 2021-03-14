@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Stores\Store;
 use App\Models\Stores\StoresRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class StoreController extends Controller
@@ -66,7 +67,17 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->model->create($request->only([
+            'name',
+            'address',
+            'fixed_no',
+            'mobile_no',
+            'fax_no',
+            'email',
+            'br_no'
+        ]));
+
+        return Redirect::route('manage.stores.index');
     }
 
     /**

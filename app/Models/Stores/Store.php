@@ -12,6 +12,10 @@ class Store extends Model
     use HasFactory;
     use Searchable;
 
+    protected $attributes = [
+        'address_formatted' => ''
+    ];
+
     protected $fillable = [
         'name',
         'address',
