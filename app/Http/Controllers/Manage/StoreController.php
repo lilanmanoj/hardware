@@ -45,7 +45,7 @@ class StoreController extends Controller
             'items' => $stores
         ];
 
-        return Inertia::render('Stores', $data);
+        return Inertia::render('Stores/Index', $data);
     }
 
     /**
@@ -55,7 +55,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Stores/Create');
     }
 
     /**

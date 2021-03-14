@@ -13,7 +13,7 @@
 
                     <div class="grid grid-cols-6 gap-4">
                         <div class="col-start-1">
-                            <el-button round type="primary"><i class="el-icon-plus el-icon-left"></i> Add New</el-button>
+                            <el-button round type="primary" size="medium" @click="addNew"><i class="el-icon-plus el-icon-left"></i> Add New</el-button>
                         </div>
                         <div class="col-end-7 col-span-2">
                             <el-input
@@ -52,7 +52,7 @@
                             label="Actions"
                             width="120">
                                 <template #default="scope">
-                                    <el-button type="text" size="small"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
+                                    <el-button round size="small"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
                                     <el-button type="text" size="small"><i class="el-icon-delete text-red-600"></i></el-button>
                                 </template>
                         </el-table-column>
@@ -83,6 +83,11 @@
         },
         props: {
             items: Array,
+        },
+        methods: {
+            addNew() {
+                this.$inertia.get(route('manage.stores.create'));
+            }
         }
     }
 </script>
