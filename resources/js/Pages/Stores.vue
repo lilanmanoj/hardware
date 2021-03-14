@@ -9,34 +9,65 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-                    {{ items }}
+                    <!-- {{ items }} -->
 
-                    <table class="border-collapse border border-black-800">
-                        <thead>
-                            <tr>
-                                <th class="border border-grey-600 py-2 px-3">Name</th>
-                                <th class="border border-grey-600 py-2 px-3">Address</th>
-                                <th class="border border-grey-600 py-2 px-3">Phone</th>
-                                <th class="border border-grey-600 py-2 px-3">Status</th>
-                                <th class="border border-grey-600 py-2 px-3">Action</th>
-                            </tr>
-                        </thead>
+                    <div class="grid grid-cols-6 gap-4">
+                        <div class="col-start-1">
+                            <el-button round type="primary"><i class="el-icon-plus el-icon-left"></i> Add New</el-button>
+                        </div>
+                        <div class="col-end-7 col-span-2">
+                            <el-input
+                                placeholder="Search"
+                                prefix-icon="el-icon-search"
+                                v-model="input2">
+                            </el-input>
+                        </div>
+                    </div>
 
-                        <tbody v-if="items.data.length > 0">
-                            <tr v-for="item in items.data" :key="item.id">
-                                <td class="border border-grey-600 py-1 px-3">{{ item.name }}</td>
-                                <td class="border border-grey-600 py-1 px-3">{{ item.address }}</td>
-                                <td class="border border-grey-600 py-1 px-3">{{ item.fixed_no }}</td>
-                                <td class="border border-grey-600 py-1 px-3">{{ item.mobile_no }}</td>
-                                <td class="border border-grey-600 py-1 px-3"></td>
-                            </tr>
-                        </tbody>
-                        <tbody v-else>
-                            <tr>
-                                <td class="border border-grey-600 py-1 px-3" colspan="5">No records to show.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <el-table
+                        class="my-4"
+                        :data="items.data"
+                        stripe
+                        style="width: 100%">
+                        <el-table-column
+                            prop="name"
+                            label="Name"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column
+                            prop="address"
+                            label="Address"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column
+                            prop="fixed_no"
+                            label="Phone">
+                        </el-table-column>
+                        <el-table-column
+                            prop="mobile_no"
+                            label="Mobile">
+                        </el-table-column>
+                        <el-table-column
+                            fixed="right"
+                            label="Actions"
+                            width="120">
+                                <template #default="scope">
+                                    <el-button type="text" size="small"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
+                                    <el-button type="text" size="small"><i class="el-icon-delete text-red-600"></i></el-button>
+                                </template>
+                        </el-table-column>
+                    </el-table>
+
+                    <div class="flex justify-end">
+                        <div class="flex-grow-0">
+                            <el-pagination
+                                background
+                                layout="prev, pager, next"
+                                :page-size="items.per_page"
+                                :total="items.total">
+                            </el-pagination>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

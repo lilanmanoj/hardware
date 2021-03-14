@@ -42,12 +42,19 @@ class Store extends Model
     ];
 
     protected $searchable = [
+        'id',
         'name',
-        'address'
+        'address',
+        'email'
     ];
 
     public $asYouType = false;
 
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
     public function toSearchableArray()
     {
         $array = $this->searchable;

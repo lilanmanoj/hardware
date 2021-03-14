@@ -39,7 +39,7 @@ class StoreController extends Controller
      */
     public function index(Request $request)
     {
-        $stores = $this->repository->searchPaginate($request->input('query'));
+        $stores = $this->model->search($request->input('query'))->paginate();
 
         $data = [
             'items' => $stores
