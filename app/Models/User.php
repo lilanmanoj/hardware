@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Stores\Store;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,4 +59,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the stores for the user.
+     */
+    public function stores()
+    {
+        return $this->hasMany(Store::class, 'admin_id');
+    }
 }

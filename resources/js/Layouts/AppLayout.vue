@@ -21,7 +21,7 @@
                                     Dashboard
                                 </jet-nav-link>
 
-                                <jet-nav-link :href="route('stores')" :active="route().current('stores')">
+                                <jet-nav-link :href="route('manage.stores.index')" :active="route().current('manage.stores.index')">
                                     Stores
                                 </jet-nav-link>
                             </div>

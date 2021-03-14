@@ -27,6 +27,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/stores', function () {
-    return Inertia::render('Stores');
-})->name('stores');
+Route::group([
+    'middleware' => ['auth:sanctum', 'verified'],
+    'namespace' => '\App\Http\Controllers\Manage',
+    'prefix' =>'manage',
+    'as' => 'manage.'
+], function () {
+    Route::resource('stores', 'StoreController')->only([ 'index', 'create', 'store' ]);
+});
