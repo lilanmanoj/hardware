@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>/svg/ic_contact_us_social_media_fb</title>
+    <defs>
+        <filter x="-104.5%" y="-104.5%" width="309.1%" height="309.1%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.102764423 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="ic_contact_us_social_media_fb" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="facebook" filter="url(#filter-1)" transform="translate(6.000000, 6.000000)" fill="#FCCD20" fill-rule="nonzero">
+            <path d="M44,22 C44,9.8484375 34.1515625,0 22,0 C9.8484375,0 0,9.8484375 0,22 C0,34.1515625 9.8484375,44 22,44 C22.1289062,44 22.2578125,44 22.3867188,43.9914062 L22.3867188,26.8726562 L17.6601562,26.8726562 L17.6601562,21.3640625 L22.3867188,21.3640625 L22.3867188,17.3078125 C22.3867188,12.6070312 25.2570312,10.0460937 29.4507812,10.0460937 C31.4617187,10.0460937 33.1890625,10.1921875 33.6875,10.2609375 L33.6875,15.1765625 L30.8,15.1765625 C28.5226562,15.1765625 28.0757812,16.259375 28.0757812,17.8492187 L28.0757812,21.3554687 L33.5328125,21.3554687 L32.8195312,26.8640625 L28.0757812,26.8640625 L28.0757812,43.1492187 C37.2710937,40.5109375 44,32.0460937 44,22 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

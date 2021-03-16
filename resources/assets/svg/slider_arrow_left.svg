@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="69px" height="150px" viewBox="0 0 69 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>/svg/slider_arrow_left</title>
+    <defs>
+        <path d="M1.35447209e-14,2.5557334e-13 C38.6153686,3.05726844 68.9986517,35.3621305 68.9986517,74.7633886 C68.9986517,114.164647 38.6153686,146.469509 1.35447209e-14,149.526777 Z" id="path-1"></path>
+        <filter x="-108.7%" y="-50.2%" width="317.4%" height="200.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="25" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="slider_arrow_left" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Combined-Shape">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+        <g id="iconfinder_icon-ios7-arrow-back_211686" transform="translate(24.000000, 57.000000)" fill="#1B1B1B" fill-rule="nonzero">
+            <polygon id="Path" points="22 3.7125 18.2989583 0 0 18.3333333 0 18.3333333 0 18.3333333 18.2989583 36.6666667 22 32.9541667 7.41354167 18.3333333"></polygon>
+        </g>
+    </g>
+</svg>
