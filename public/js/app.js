@@ -22686,6 +22686,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addNew: function addNew() {
       this.$inertia.get(route('manage.stores.create'));
+    },
+    changePage: function changePage(e) {
+      this.$inertia.get(route('products.index'), {
+        page: e
+      });
+    },
+    prevClicked: function prevClicked() {
+      this.$inertia.get(this.items.prev_page_url);
+    },
+    nextClicked: function nextClicked() {
+      this.$inertia.get(this.items.next_page_url);
     }
   }
 });
@@ -27534,10 +27545,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         background: "",
         layout: "prev, pager, next",
         "page-size": $props.items.per_page,
-        total: $props.items.total
+        total: $props.items.total,
+        "current-page": $props.items.current_page,
+        onCurrentChange: $options.changePage,
+        onPrevClick: $options.prevClicked,
+        onNextClick: $options.nextClicked
       }, null, 8
       /* PROPS */
-      , ["page-size", "total"])])])])])])];
+      , ["page-size", "total", "current-page", "onCurrentChange", "onPrevClick", "onNextClick"])])])])])])];
     }),
     _: 1
     /* STABLE */

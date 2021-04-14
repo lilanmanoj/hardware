@@ -64,7 +64,11 @@
                                 background
                                 layout="prev, pager, next"
                                 :page-size="items.per_page"
-                                :total="items.total">
+                                :total="items.total"
+                                :current-page="items.current_page"
+                                @current-change="changePage"
+                                @prev-click="prevClicked"
+                                @next-click="nextClicked">
                             </el-pagination>
                         </div>
                     </div>
@@ -87,6 +91,15 @@
         methods: {
             addNew() {
                 this.$inertia.get(route('manage.stores.create'));
+            },
+            changePage(e) {
+                this.$inertia.get(route('products.index'), { page: e });
+            },
+            prevClicked() {
+                this.$inertia.get(this.items.prev_page_url);
+            },
+            nextClicked() {
+                this.$inertia.get(this.items.next_page_url);
             }
         }
     }
