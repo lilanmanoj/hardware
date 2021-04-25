@@ -5,12 +5,12 @@ namespace App\Models\Stores;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
 {
     use HasFactory;
-    use Searchable;
+    use SoftDeletes;
 
     protected $attributes = [
         'address_formatted' => ''
@@ -51,20 +51,6 @@ class Store extends Model
         'address',
         'email'
     ];
-
-    public $asYouType = false;
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $array = $this->searchable;
-
-        return $array;
-    }
 
     /**
      * Get the admin that owns the store.
