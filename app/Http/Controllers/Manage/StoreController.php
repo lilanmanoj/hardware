@@ -50,6 +50,7 @@ class StoreController extends Controller
         ->withQueryString();
 
         $data = [
+            'query' => $query,
             'items' => $items
         ];
 

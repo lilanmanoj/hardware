@@ -19,7 +19,7 @@
                             <el-input
                                 placeholder="Search"
                                 prefix-icon="el-icon-search"
-                                v-model="input2">
+                                v-model="form.query">
                             </el-input>
                         </div>
                     </div>
@@ -80,20 +80,39 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+    import pickBy from 'lodash/pickBy'
+    import throttle from 'lodash/throttle'
 
     export default {
         components: {
             AppLayout
         },
         props: {
-            items: Array,
+            items: Object,
+            query: String
+        },
+        data() {
+            return {
+                form: {
+                    query: this.query
+                },
+            }
+        },
+        watch: {
+            form: {
+                handler: throttle(function() {
+                    let query = pickBy(this.form)
+                    this.$inertia.get(this.route('manage.stores.index'), query, { replace: true, preserveState: true })
+                }, 150),
+                deep: true,
+            }
         },
         methods: {
             addNew() {
                 this.$inertia.get(route('manage.stores.create'));
             },
             changePage(e) {
-                this.$inertia.get(route('products.index'), { page: e });
+                this.$inertia.get(route('manage.stores.index'), { page: e, query: this.form.query });
             },
             prevClicked() {
                 this.$inertia.get(this.items.prev_page_url);
