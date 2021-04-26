@@ -21,4 +21,16 @@ class BaseRepository
 
 		return $this->model->orWhere($where)->paginate();
 	}
+
+	/**
+     * Get the searchable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->model->searchable;
+
+        return $array;
+    }
 }

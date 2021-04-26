@@ -10,8 +10,16 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <el-form ref="form" :model="form" label-width="160px">
+                        <el-form-item label="Code">
+                            <el-input placeholder="Enter store code" name="code" v-model="form.code"></el-input>
+                        </el-form-item>
+
                         <el-form-item label="Name">
                             <el-input placeholder="Enter store name" name="name" v-model="form.name"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="Description">
+                            <el-input type="textarea" :rows="2" placeholder="Enter additional information" name="description" v-model="form.description"></el-input>
                         </el-form-item>
 
                         <el-form-item label="Address">
@@ -38,6 +46,10 @@
                             <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
                         </el-form-item>
 
+                        <el-form-item label="Notes">
+                            <el-input type="textarea" :rows="2" placeholder="Enter special notes" name="notes" v-model="form.special_notes"></el-input>
+                        </el-form-item>
+
                         <el-form-item>
                             <el-button type="warning" @click="cancel"><i class="el-icon-close el-icon-left text-red-500"></i> Cancel</el-button>
                             <el-button type="primary" @click="submit"><i class="el-icon-check el-icon-left text-green-300"></i> Create</el-button>
@@ -57,17 +69,20 @@
             AppLayout
         },
         data() {
-        return {
-            form: {
-                name: '',
-                address: '',
-                fixed_no: '',
-                mobile_no: '',
-                fax_no: '',
-                email: '',
-                br_no: ''
+            return {
+                form: {
+                    code: '',
+                    name: '',
+                    description: '',
+                    address: '',
+                    fixed_no: '',
+                    mobile_no: '',
+                    fax_no: '',
+                    email: '',
+                    br_no: '',
+                    special_notes: ''
+                }
             }
-        }
         },
         methods: {
             submit() {

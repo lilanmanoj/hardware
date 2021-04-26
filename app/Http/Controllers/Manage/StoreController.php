@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Stores\Store;
 use App\Models\Stores\StoresRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Throwable;
 
 class StoreController extends Controller
 {
@@ -40,10 +42,17 @@ class StoreController extends Controller
      */
     public function index(Request $request)
     {
-        $stores = $this->model->search($request->input('query'))->paginate();
+        $query = $request->input('query', '');
+
+        $items = $this->model
+        ->search($query)
+        ->orderBy('created_at', 'desc')
+        ->paginate()
+        ->withQueryString();
 
         $data = [
-            'items' => $stores
+            'query' => $query,
+            'items' => $items
         ];
 
         return Inertia::render('Stores/Index', $data);
@@ -67,15 +76,33 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        $this->model->create($request->only([
-            'name',
-            'address',
-            'fixed_no',
-            'mobile_no',
-            'fax_no',
-            'email',
-            'br_no'
-        ]));
+        try {
+            $user = Auth::user();
+
+            $data = $request->only([
+                'code',
+                'name',
+                'description',
+                'address',
+                'fixed_no',
+                'mobile_no',
+                'fax_no',
+                'email',
+                'br_no',
+                'special_notes'
+            ]);
+
+            $data['status'] = 0;
+            $data['created_by'] = $user->id;
+
+            $this->model->create($data);
+
+            $request->session()->flash('flash.banner', 'Success - Store created successfully!');
+            $request->session()->flash('flash.bannerStyle', 'success');
+        } catch (Throwable $th) {
+            $request->session()->flash('flash.banner', 'Failed - Something went wrong while creating store!');
+            $request->session()->flash('flash.bannerStyle', 'danger');
+        }
 
         return Redirect::route('manage.stores.index');
     }

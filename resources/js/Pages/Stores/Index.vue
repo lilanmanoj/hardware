@@ -19,7 +19,7 @@
                             <el-input
                                 placeholder="Search"
                                 prefix-icon="el-icon-search"
-                                v-model="input2">
+                                v-model="form.query">
                             </el-input>
                         </div>
                     </div>
@@ -30,22 +30,28 @@
                         stripe
                         style="width: 100%">
                         <el-table-column
+                            prop="code"
+                            label="Code"
+                            width="160">
+                        </el-table-column>
+                        <el-table-column
                             prop="name"
                             label="Name"
-                            width="180">
+                            width="200">
                         </el-table-column>
                         <el-table-column
                             prop="address"
-                            label="Address"
-                            width="180">
+                            label="Address">
                         </el-table-column>
                         <el-table-column
                             prop="fixed_no"
-                            label="Phone">
+                            label="Phone"
+                            width="150">
                         </el-table-column>
                         <el-table-column
                             prop="mobile_no"
-                            label="Mobile">
+                            label="Mobile"
+                            width="150">
                         </el-table-column>
                         <el-table-column
                             fixed="right"
@@ -64,7 +70,11 @@
                                 background
                                 layout="prev, pager, next"
                                 :page-size="items.per_page"
-                                :total="items.total">
+                                :total="items.total"
+                                :current-page="items.current_page"
+                                @current-change="changePage"
+                                @prev-click="prevClicked"
+                                @next-click="nextClicked">
                             </el-pagination>
                         </div>
                     </div>
@@ -76,17 +86,45 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
+    import pickBy from 'lodash/pickBy'
+    import throttle from 'lodash/throttle'
 
     export default {
         components: {
             AppLayout
         },
         props: {
-            items: Array,
+            items: Object,
+            query: String
+        },
+        data() {
+            return {
+                form: {
+                    query: this.query
+                },
+            }
+        },
+        watch: {
+            form: {
+                handler: throttle(function() {
+                    let query = pickBy(this.form)
+                    this.$inertia.get(this.route('manage.stores.index'), query, { replace: true, preserveState: true })
+                }, 150),
+                deep: true,
+            }
         },
         methods: {
             addNew() {
                 this.$inertia.get(route('manage.stores.create'));
+            },
+            changePage(e) {
+                this.$inertia.get(route('manage.stores.index'), { page: e, query: this.form.query });
+            },
+            prevClicked() {
+                this.$inertia.get(this.items.prev_page_url);
+            },
+            nextClicked() {
+                this.$inertia.get(this.items.next_page_url);
             }
         }
     }
