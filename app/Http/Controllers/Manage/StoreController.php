@@ -41,11 +41,16 @@ class StoreController extends Controller
      */
     public function index(Request $request)
     {
-        // $stores = $this->model->search($request->input('query'))->paginate();
-        $stores = $this->model->paginate();
+        $query = $request->input('query', '');
+
+        $items = $this->model
+        ->search($query)
+        ->orderBy('created_at', 'desc')
+        ->paginate()
+        ->withQueryString();
 
         $data = [
-            'items' => $stores
+            'items' => $items
         ];
 
         return Inertia::render('Stores/Index', $data);

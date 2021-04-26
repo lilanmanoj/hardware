@@ -5,12 +5,12 @@ namespace App\Models\Stores;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Store extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    use SearchableTrait;
 
     protected $attributes = [
         'address_formatted' => ''
@@ -44,12 +44,13 @@ class Store extends Model
         'br_no',
         'admin'
     ];
-
+    
     protected $searchable = [
-        'id',
-        'name',
-        'address',
-        'email'
+        'columns' => [
+            'stores.name' => 10,
+            'stores.address' => 10,
+            'stores.email' => 5
+        ]
     ];
 
     /**
