@@ -22641,13 +22641,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
+        code: '',
         name: '',
+        description: '',
         address: '',
         fixed_no: '',
         mobile_no: '',
         fax_no: '',
         email: '',
-        br_no: ''
+        br_no: '',
+        special_notes: ''
       }
     };
   },
@@ -27565,6 +27568,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+            label: "Code"
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                placeholder: "Enter store code",
+                name: "code",
+                modelValue: $data.form.code,
+                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                  return $data.form.code = $event;
+                })
+              }, null, 8
+              /* PROPS */
+              , ["modelValue"])];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
             label: "Name"
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -27572,8 +27593,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter store name",
                 name: "name",
                 modelValue: $data.form.name,
-                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
                   return $data.form.name = $event;
+                })
+              }, null, 8
+              /* PROPS */
+              , ["modelValue"])];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+            label: "Description"
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                type: "textarea",
+                rows: 2,
+                placeholder: "Enter additional information",
+                name: "description",
+                modelValue: $data.form.description,
+                "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+                  return $data.form.description = $event;
                 })
               }, null, 8
               /* PROPS */
@@ -27592,7 +27633,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter store address",
                 name: "address",
                 modelValue: $data.form.address,
-                "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+                "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
                   return $data.form.address = $event;
                 })
               }, null, 8
@@ -27610,7 +27651,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter fixed no",
                 name: "fixed_no",
                 modelValue: $data.form.fixed_no,
-                "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+                "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
                   return $data.form.fixed_no = $event;
                 })
               }, null, 8
@@ -27628,7 +27669,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter mobile no",
                 name: "mobile_no",
                 modelValue: $data.form.mobile_no,
-                "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
                   return $data.form.mobile_no = $event;
                 })
               }, null, 8
@@ -27646,7 +27687,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter fax no",
                 name: "fax_no",
                 modelValue: $data.form.fax_no,
-                "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+                "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
                   return $data.form.fax_no = $event;
                 })
               }, null, 8
@@ -27664,7 +27705,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter email",
                 name: "email",
                 modelValue: $data.form.email,
-                "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+                "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
                   return $data.form.email = $event;
                 })
               }, null, 8
@@ -27682,8 +27723,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 placeholder: "Enter BR no",
                 name: "br_no",
                 modelValue: $data.form.br_no,
-                "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+                "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
                   return $data.form.br_no = $event;
+                })
+              }, null, 8
+              /* PROPS */
+              , ["modelValue"])];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+            label: "Notes"
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                type: "textarea",
+                rows: 2,
+                placeholder: "Enter special notes",
+                name: "notes",
+                modelValue: $data.form.special_notes,
+                "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                  return $data.form.special_notes = $event;
                 })
               }, null, 8
               /* PROPS */
@@ -27859,19 +27920,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
+            prop: "code",
+            label: "Code",
+            width: "160"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
             prop: "name",
             label: "Name",
-            width: "180"
+            width: "200"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
             prop: "address",
-            label: "Address",
-            width: "180"
+            label: "Address"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
             prop: "fixed_no",
-            label: "Phone"
+            label: "Phone",
+            width: "150"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
             prop: "mobile_no",
-            label: "Mobile"
+            label: "Mobile",
+            width: "150"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_table_column, {
             fixed: "right",
             label: "Actions",

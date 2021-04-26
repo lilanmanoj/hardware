@@ -17,7 +17,9 @@ class Store extends Model
     ];
 
     protected $fillable = [
+        'code',
         'name',
+        'description',
         'address',
         'address_formatted',
         'latitude',
@@ -27,12 +29,19 @@ class Store extends Model
         'fax_no',
         'email',
         'admin_id',
-        'br_no'
+        'br_no',
+        'area_id',
+        'district_id',
+        'special_notes',
+        'created_by',
+        'status'
     ];
 
     protected $visible = [
         'id',
+        'code',
         'name',
+        'description',
         'address',
         'address_formatted',
         'latitude',
@@ -42,9 +51,12 @@ class Store extends Model
         'fax_no',
         'email',
         'br_no',
-        'admin'
+        'special_notes',
+        'status',
+        'admin',
+        'creator'
     ];
-    
+
     protected $searchable = [
         'columns' => [
             'stores.name' => 10,
@@ -59,5 +71,13 @@ class Store extends Model
     public function admin()
     {
         return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    /**
+     * Get the created user that created the store.
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

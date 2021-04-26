@@ -30,22 +30,28 @@
                         stripe
                         style="width: 100%">
                         <el-table-column
+                            prop="code"
+                            label="Code"
+                            width="160">
+                        </el-table-column>
+                        <el-table-column
                             prop="name"
                             label="Name"
-                            width="180">
+                            width="200">
                         </el-table-column>
                         <el-table-column
                             prop="address"
-                            label="Address"
-                            width="180">
+                            label="Address">
                         </el-table-column>
                         <el-table-column
                             prop="fixed_no"
-                            label="Phone">
+                            label="Phone"
+                            width="150">
                         </el-table-column>
                         <el-table-column
                             prop="mobile_no"
-                            label="Mobile">
+                            label="Mobile"
+                            width="150">
                         </el-table-column>
                         <el-table-column
                             fixed="right"
