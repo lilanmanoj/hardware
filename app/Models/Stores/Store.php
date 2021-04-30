@@ -54,7 +54,8 @@ class Store extends Model
         'special_notes',
         'status',
         'admin',
-        'creator'
+        'creator',
+        'opening_hours'
     ];
 
     protected $searchable = [
@@ -80,4 +81,12 @@ class Store extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Get the opening hours for the store.
+     */
+    public function openingHours()
+    {
+        return $this->hasMany(OpeningHour::class);
+    }    
 }
