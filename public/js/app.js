@@ -22634,12 +22634,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 
+
+var makeRange = function makeRange(start, end) {
+  var result = [];
+
+  for (var i = start; i <= end; i++) {
+    result.push(i);
+  }
+
+  return result;
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
+      expanded: ['general_details', 'opening_hours'],
       form: {
         code: '',
         name: '',
@@ -22650,11 +22662,78 @@ __webpack_require__.r(__webpack_exports__);
         fax_no: '',
         email: '',
         br_no: '',
-        special_notes: ''
+        special_notes: '',
+        opening_hours: [{
+          'day': "Monday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Tuesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Wednesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Thursday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Friday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Saturday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Sunday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }]
       }
     };
   },
   methods: {
+    disabledSeconds: function disabledSeconds() {
+      return makeRange(1, 59);
+    },
+    changedFullDayOpen: function changedFullDayOpen(data) {
+      data.full_day_close = false;
+      data.picker_disabled = data.full_day_open;
+      this.resetOpeningHours(data);
+    },
+    changedFullDayClose: function changedFullDayClose(data) {
+      data.full_day_open = false;
+      data.picker_disabled = data.full_day_close;
+      this.resetOpeningHours(data);
+    },
+    resetOpeningHours: function resetOpeningHours(data) {
+      data.open_at = null;
+      data.close_at = null;
+    },
     submit: function submit() {
       this.$inertia.post(route('manage.stores.store'), this.form);
     },
@@ -27529,26 +27608,91 @@ var _hoisted_4 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg p-4"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-tickets"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" General Details")], -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-map-location"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Location/Regional Information")], -1
+/* HOISTED */
+);
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-alarm-clock"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opening Hours")], -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "mx-auto border-collapse my-4"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
+  "class": "border-b border-gray-300"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open 24 Hours"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Closed Full Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open Time"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Close Time")], -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
+  "class": "px-3 py-1"
+};
+var _hoisted_11 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_12 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_13 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_14 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_15 = {
+  "class": "mt-5 flex justify-between overflow-hidden"
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-close el-icon-left text-red-500"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-input");
 
   var _component_el_form_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form-item");
+
+  var _component_el_collapse_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse-item");
+
+  var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
+
+  var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
+
+  var _component_el_collapse = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse");
 
   var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
 
@@ -27567,224 +27711,314 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "label-width": "160px"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Code"
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse, {
+            modelValue: $data.expanded,
+            "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+              return $data.expanded = $event;
+            })
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter store code",
-                name: "code",
-                modelValue: $data.form.code,
-                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-                  return $data.form.code = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Name"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter store name",
-                name: "name",
-                modelValue: $data.form.name,
-                "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-                  return $data.form.name = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Description"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter additional information",
-                name: "description",
-                modelValue: $data.form.description,
-                "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-                  return $data.form.description = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Address"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter store address",
-                name: "address",
-                modelValue: $data.form.address,
-                "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-                  return $data.form.address = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Phone No (Fixed)"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter fixed no",
-                name: "fixed_no",
-                modelValue: $data.form.fixed_no,
-                "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-                  return $data.form.fixed_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Phone No (Mobile)"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter mobile no",
-                name: "mobile_no",
-                modelValue: $data.form.mobile_no,
-                "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
-                  return $data.form.mobile_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Fax No"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter fax no",
-                name: "fax_no",
-                modelValue: $data.form.fax_no,
-                "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-                  return $data.form.fax_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Email"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter email",
-                name: "email",
-                modelValue: $data.form.email,
-                "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-                  return $data.form.email = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "BR No"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter BR no",
-                name: "br_no",
-                modelValue: $data.form.br_no,
-                "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-                  return $data.form.br_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Notes"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter special notes",
-                name: "notes",
-                modelValue: $data.form.special_notes,
-                "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
-                  return $data.form.special_notes = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, null, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
-                type: "warning",
-                onClick: $options.cancel
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "general_details"
               }, {
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_5];
+                }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_5, _hoisted_6];
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Code"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter store code",
+                        name: "code",
+                        modelValue: $data.form.code,
+                        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                          return $data.form.code = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Name"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter store name",
+                        name: "name",
+                        modelValue: $data.form.name,
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+                          return $data.form.name = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Description"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter additional information",
+                        name: "description",
+                        modelValue: $data.form.description,
+                        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+                          return $data.form.description = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Address"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter store address",
+                        name: "address",
+                        modelValue: $data.form.address,
+                        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                          return $data.form.address = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Phone No (Fixed)"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter fixed no",
+                        name: "fixed_no",
+                        modelValue: $data.form.fixed_no,
+                        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+                          return $data.form.fixed_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Phone No (Mobile)"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter mobile no",
+                        name: "mobile_no",
+                        modelValue: $data.form.mobile_no,
+                        "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+                          return $data.form.mobile_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Fax No"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter fax no",
+                        name: "fax_no",
+                        modelValue: $data.form.fax_no,
+                        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+                          return $data.form.fax_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Email"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter email",
+                        name: "email",
+                        modelValue: $data.form.email,
+                        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+                          return $data.form.email = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "BR No"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter BR no",
+                        name: "br_no",
+                        modelValue: $data.form.br_no,
+                        "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+                          return $data.form.br_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  })];
                 }),
                 _: 1
                 /* STABLE */
 
-              }, 8
-              /* PROPS */
-              , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
-                type: "primary",
-                onClick: $options.submit
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "location_info"
               }, {
-                "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_7, _hoisted_8];
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_6];
                 }),
                 _: 1
                 /* STABLE */
 
-              }, 8
-              /* PROPS */
-              , ["onClick"])];
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "opening_hours"
+              }, {
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_7];
+                }),
+                "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.opening_hours, function (data) {
+                    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
+                      key: data.day
+                    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
+                    /* TEXT */
+                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                      modelValue: data.full_day_open,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.full_day_open = $event;
+                      },
+                      onChange: function onChange($event) {
+                        return $options.changedFullDayOpen(data);
+                      }
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                      modelValue: data.full_day_close,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.full_day_close = $event;
+                      },
+                      onChange: function onChange($event) {
+                        return $options.changedFullDayClose(data);
+                      }
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                      modelValue: data.open_at,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.open_at = $event;
+                      },
+                      format: "HH:mm",
+                      disabled: data.picker_disabled,
+                      "disabled-seconds": $options.disabledSeconds,
+                      placeholder: "Open time"
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                      modelValue: data.close_at,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.close_at = $event;
+                      },
+                      format: "HH:mm",
+                      disabled: data.picker_disabled,
+                      "disabled-seconds": $options.disabledSeconds,
+                      placeholder: "Close time"
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])])]);
+                  }), 128
+                  /* KEYED_FRAGMENT */
+                  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Notes"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter special notes",
+                        name: "notes",
+                        modelValue: $data.form.special_notes,
+                        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                          return $data.form.special_notes = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  })];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
             }),
             _: 1
             /* STABLE */
 
-          })];
+          }, 8
+          /* PROPS */
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            type: "warning",
+            onClick: $options.cancel
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_16, _hoisted_17];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            type: "primary",
+            onClick: $options.submit
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_18, _hoisted_19];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"])])];
         }),
         _: 1
         /* STABLE */

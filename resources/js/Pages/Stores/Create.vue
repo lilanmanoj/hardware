@@ -10,50 +10,118 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <el-form ref="form" :model="form" label-width="160px">
-                        <el-form-item label="Code">
-                            <el-input placeholder="Enter store code" name="code" v-model="form.code"></el-input>
-                        </el-form-item>
+                        <el-collapse v-model="expanded">
 
-                        <el-form-item label="Name">
-                            <el-input placeholder="Enter store name" name="name" v-model="form.name"></el-input>
-                        </el-form-item>
+                            <el-collapse-item name="general_details">
+                                <template #title>
+                                    <h2><i class="el-icon-tickets"></i> General Details</h2>
+                                </template>
 
-                        <el-form-item label="Description">
-                            <el-input type="textarea" :rows="2" placeholder="Enter additional information" name="description" v-model="form.description"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Code">
+                                    <el-input placeholder="Enter store code" name="code" v-model="form.code"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Address">
-                            <el-input type="textarea" :rows="2" placeholder="Enter store address" name="address" v-model="form.address"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Name">
+                                    <el-input placeholder="Enter store name" name="name" v-model="form.name"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Phone No (Fixed)">
-                            <el-input placeholder="Enter fixed no" name="fixed_no" v-model="form.fixed_no"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Description">
+                                    <el-input type="textarea" :rows="2" placeholder="Enter additional information" name="description" v-model="form.description"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Phone No (Mobile)">
-                            <el-input placeholder="Enter mobile no" name="mobile_no" v-model="form.mobile_no"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Address">
+                                    <el-input type="textarea" :rows="2" placeholder="Enter store address" name="address" v-model="form.address"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Fax No">
-                            <el-input placeholder="Enter fax no" name="fax_no" v-model="form.fax_no"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Phone No (Fixed)">
+                                    <el-input placeholder="Enter fixed no" name="fixed_no" v-model="form.fixed_no"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Email">
-                            <el-input placeholder="Enter email" name="email" v-model="form.email"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Phone No (Mobile)">
+                                    <el-input placeholder="Enter mobile no" name="mobile_no" v-model="form.mobile_no"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="BR No">
-                            <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Fax No">
+                                    <el-input placeholder="Enter fax no" name="fax_no" v-model="form.fax_no"></el-input>
+                                </el-form-item>
 
-                        <el-form-item label="Notes">
-                            <el-input type="textarea" :rows="2" placeholder="Enter special notes" name="notes" v-model="form.special_notes"></el-input>
-                        </el-form-item>
+                                <el-form-item label="Email">
+                                    <el-input placeholder="Enter email" name="email" v-model="form.email"></el-input>
+                                </el-form-item>
 
-                        <el-form-item>
+                                <el-form-item label="BR No">
+                                    <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
+                                </el-form-item>
+                            </el-collapse-item>
+                            
+                            <el-collapse-item name="location_info">
+                                <template #title>
+                                    <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
+                                </template>
+                            </el-collapse-item>
+                        
+                            <el-collapse-item name="opening_hours">
+                                <template #title>
+                                    <h2><i class="el-icon-alarm-clock"></i> Opening Hours</h2>
+                                </template>
+
+                                <table class="mx-auto border-collapse my-4">
+                                    <thead class="border-b border-gray-300">
+                                        <th class="text-left p-3">Day</th>
+                                        <th class="text-left p-3">Open 24 Hours</th>
+                                        <th class="text-left p-3">Closed Full Day</th>
+                                        <th class="text-left p-3">Open Time</th>
+                                        <th class="text-left p-3">Close Time</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr v-for="data in form.opening_hours" :key="data.day">
+                                            <td class="px-3 py-1">{{ data.day }}</td>
+                                            <td class="px-3 py-1 text-center">
+                                                <el-switch
+                                                    v-model="data.full_day_open"
+                                                    @change="changedFullDayOpen(data)">
+                                                </el-switch>
+                                            </td>
+                                            <td class="px-3 py-1 text-center">
+                                                <el-switch
+                                                    v-model="data.full_day_close"
+                                                    @change="changedFullDayClose(data)">
+                                                </el-switch>
+                                            </td>
+                                            <td class="px-3 py-1 text-center">
+                                                <el-time-picker
+                                                    v-model="data.open_at"
+                                                    format="HH:mm"
+                                                    :disabled="data.picker_disabled"
+                                                    :disabled-seconds="disabledSeconds"
+                                                    placeholder="Open time">
+                                                </el-time-picker>
+                                            </td>
+                                            <td class="px-3 py-1 text-center">
+                                                <el-time-picker
+                                                    v-model="data.close_at"
+                                                    format='HH:mm'
+                                                    :disabled="data.picker_disabled"
+                                                    :disabled-seconds="disabledSeconds"
+                                                    placeholder="Close time">
+                                                </el-time-picker>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <el-form-item label="Notes">
+                                    <el-input type="textarea" :rows="2" placeholder="Enter special notes" name="notes" v-model="form.special_notes"></el-input>
+                                </el-form-item>
+                            </el-collapse-item>
+                            
+                        </el-collapse>
+
+                        <div class="mt-5 flex justify-between overflow-hidden">
                             <el-button type="warning" @click="cancel"><i class="el-icon-close el-icon-left text-red-500"></i> Cancel</el-button>
                             <el-button type="primary" @click="submit"><i class="el-icon-check el-icon-left text-green-300"></i> Create</el-button>
-                        </el-form-item>
+                        </div>
                     </el-form>
                 </div>
             </div>
@@ -64,12 +132,23 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
 
+    const makeRange = (start, end) => {
+        const result = [];
+
+        for (let i = start; i <= end; i++) {
+            result.push(i);
+        }
+
+        return result;
+    }
+
     export default {
         components: {
             AppLayout
         },
         data() {
             return {
+                expanded: [ 'general_details', 'opening_hours' ],
                 form: {
                     code: '',
                     name: '',
@@ -80,11 +159,86 @@
                     fax_no: '',
                     email: '',
                     br_no: '',
-                    special_notes: ''
+                    special_notes: '',
+                    opening_hours: [
+                        {
+                            'day': "Monday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Tuesday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Wednesday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Thursday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Friday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Saturday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Sunday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        }
+                    ]
                 }
             }
         },
         methods: {
+            disabledSeconds() {
+                return makeRange(1, 59);
+            },
+            changedFullDayOpen(data) {
+                data.full_day_close = false;
+                data.picker_disabled = data.full_day_open;
+                this.resetOpeningHours(data);
+            },
+            changedFullDayClose(data) {
+                data.full_day_open = false;
+                data.picker_disabled = data.full_day_close;
+                this.resetOpeningHours(data);
+            },
+            resetOpeningHours(data) {
+                data.open_at = null;
+                data.close_at = null;
+            },
             submit() {
                 this.$inertia.post(route('manage.stores.store'), this.form);
             },
