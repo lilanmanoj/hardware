@@ -58,6 +58,19 @@
                                 <template #title>
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
+
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4">
+                                    <el-autocomplete
+                                        class="w-full"
+                                        v-model="place"
+                                        :fetch-suggestions="querySearch"
+                                        placeholder="Search for place"
+                                        :trigger-on-focus="false"
+                                        @select="handleSelect"
+                                    ></el-autocomplete>
+                                </div>
+
+                                <div ref="map" class="mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"></div>
                             </el-collapse-item>
                         
                             <el-collapse-item name="opening_hours">
@@ -130,7 +143,10 @@
 </template>
 
 <script>
-    import AppLayout from '@/Layouts/AppLayout'
+    import AppLayout from '@/Layouts/AppLayout';
+    import { Loader } from '@googlemaps/js-api-loader';
+    
+    const googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
 
     const makeRange = (start, end) => {
         const result = [];
@@ -141,6 +157,15 @@
 
         return result;
     }
+    
+    const mapLoader = new Loader({
+        apiKey: googleMapApiKey,
+        version: 3.43,
+        libraries: ["places"]
+    });
+
+    let $map;
+    let $markers = [];
 
     export default {
         components: {
@@ -149,6 +174,7 @@
         data() {
             return {
                 expanded: [ 'general_details', 'opening_hours' ],
+                place: null,
                 form: {
                     code: '',
                     name: '',
@@ -160,6 +186,8 @@
                     email: '',
                     br_no: '',
                     special_notes: '',
+                    latitude: null,
+                    longitude: null,
                     opening_hours: [
                         {
                             'day': "Monday",
@@ -245,6 +273,39 @@
             cancel() {
                 this.$inertia.get(route('manage.stores.index'));
             }
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                mapLoader.load().then(() => {
+                    $map = new google.maps.Map(this.$refs.map, {
+                        center: { lat: 6.8784116, lng: 79.9405166 },
+                        zoom: 10
+                    });
+
+                    $map.addListener("click", (e) => {
+                        // Clear previous marker
+                        if ($markers.length > 0) {
+                            for (let i = 0; i < $markers.length; i++) {
+                                $markers[i].setMap(null);
+                            }
+
+                            $markers = [];
+                        }
+
+                        // Set new marker
+                        const marker = new google.maps.Marker({
+                            position: e.latLng,
+                            map: $map,
+                            title: "Store location"
+                        });
+
+                        this.form.latitude = e.latLng.lat();
+                        this.form.longitude = e.latLng.lng();
+
+                        $markers.push(marker);
+                    });
+                });
+            });
         }
     }
 </script>
