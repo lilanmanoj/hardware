@@ -59,15 +59,8 @@
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
 
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4">
-                                    <el-autocomplete
-                                        class="w-full"
-                                        v-model="place"
-                                        :fetch-suggestions="querySearch"
-                                        placeholder="Search for place"
-                                        :trigger-on-focus="false"
-                                        @select="handleSelect"
-                                    ></el-autocomplete>
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2 px-4">
+                                    <input ref="placesAutocomplete" type="text" placeholder="Search place" class="w-full">
                                 </div>
 
                                 <div ref="map" class="mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"></div>
@@ -303,6 +296,22 @@
                         this.form.longitude = e.latLng.lng();
 
                         $markers.push(marker);
+                    });
+
+                    const autocompleteInput = this.$refs.placesAutocomplete;
+                    const autocompleteOptions = {
+                        fields: ["place_id", "formatted_address", "geometry", "icon", "name"],
+                    };
+
+                    const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, autocompleteOptions);
+
+                    autocomplete.addListener("place_changed", () => {
+                        const selectedPlace = autocomplete.getPlace();
+                        const selectedPlaceLat = selectedPlace.geometry.location.lat();
+                        const selectedPlaceLng = selectedPlace.geometry.location.lng();
+
+                        $map.setCenter(new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng));
+                        $map.setZoom(20);
                     });
                 });
             });
