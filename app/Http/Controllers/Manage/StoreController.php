@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use App\Models\Stores\Store;
 use App\Models\Stores\StoresRepository;
+use App\Models\Districts\District;
+use App\Models\Areas\Area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -66,7 +68,11 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Stores/Create');
+        $data = [
+            'districts' => District::all()
+        ];
+
+        return Inertia::render('Stores/Create', $data);
     }
 
     /**
