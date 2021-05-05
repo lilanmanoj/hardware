@@ -30,7 +30,7 @@ class OpeningHour extends Model
 
     protected $searchable = [
         'columns' => [
-            'poening_hours.day' => 10
+            'opening_hours.day' => 10
         ]
     ];
 
