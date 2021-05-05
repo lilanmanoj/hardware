@@ -85,6 +85,8 @@ class StoreController extends Controller
                 'name',
                 'description',
                 'address',
+                'latitude',
+                'longitude',
                 'fixed_no',
                 'mobile_no',
                 'fax_no',
