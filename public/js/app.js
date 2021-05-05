@@ -23055,6 +23055,16 @@ var $markers = [];
       data.open_at = null;
       data.close_at = null;
     },
+    clearMarkers: function clearMarkers() {
+      // Clear previous marker
+      if ($markers.length > 0) {
+        for (var i = 0; i < $markers.length; i++) {
+          $markers[i].setMap(null);
+        }
+
+        $markers = [];
+      }
+    },
     submit: function submit() {
       this.$inertia.post(route('manage.stores.store'), this.form);
     },
@@ -23075,14 +23085,10 @@ var $markers = [];
           zoom: 10
         });
         $map.addListener("click", function (e) {
-          // Clear previous marker
-          if ($markers.length > 0) {
-            for (var i = 0; i < $markers.length; i++) {
-              $markers[i].setMap(null);
-            }
+          $map.setCenter(e.latLng);
+          $map.setZoom(20);
 
-            $markers = [];
-          } // Set new marker
+          _this.clearMarkers(); // Set new marker
 
 
           var marker = new google.maps.Marker({
@@ -23103,8 +23109,21 @@ var $markers = [];
           var selectedPlace = autocomplete.getPlace();
           var selectedPlaceLat = selectedPlace.geometry.location.lat();
           var selectedPlaceLng = selectedPlace.geometry.location.lng();
-          $map.setCenter(new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng));
+          var selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
+          $map.setCenter(selectedPlaceLatLng);
           $map.setZoom(20);
+
+          _this.clearMarkers(); // Set new marker
+
+
+          var marker = new google.maps.Marker({
+            position: selectedPlaceLatLng,
+            map: $map,
+            title: "Store location"
+          });
+          _this.form.latitude = selectedPlaceLat;
+          _this.form.longitude = selectedPlaceLng;
+          $markers.push(marker);
         });
       });
     });
@@ -27989,7 +28008,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_7 = {
-  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2 px-4"
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2"
 };
 var _hoisted_8 = {
   ref: "placesAutocomplete",
@@ -27997,22 +28016,38 @@ var _hoisted_8 = {
   placeholder: "Search place",
   "class": "w-full"
 };
-var _hoisted_9 = {
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", {
+  "class": "mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-info"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Click "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("strong", null, "on map"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" to place marker ("), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-location-information"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(") to mark the store location! ")], -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
   ref: "map",
   "class": "mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"
 };
+var _hoisted_11 = {
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right"
+};
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Remove Markers");
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-alarm-clock"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opening Hours")], -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_14 = {
   "class": "mx-auto border-collapse my-4"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
   "class": "border-b border-gray-300"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
   "class": "text-left p-3"
@@ -28028,40 +28063,40 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_13 = {
-  "class": "px-3 py-1"
-};
-var _hoisted_14 = {
-  "class": "px-3 py-1 text-center"
-};
-var _hoisted_15 = {
-  "class": "px-3 py-1 text-center"
-};
 var _hoisted_16 = {
-  "class": "px-3 py-1 text-center"
+  "class": "px-3 py-1"
 };
 var _hoisted_17 = {
   "class": "px-3 py-1 text-center"
 };
 var _hoisted_18 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_19 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_20 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_21 = {
   "class": "mt-5 flex justify-between overflow-hidden"
 };
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-close el-icon-left text-red-500"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-input");
@@ -28070,13 +28105,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_el_collapse_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse-item");
 
+  var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
+
   var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
 
   var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
 
   var _component_el_collapse = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse");
-
-  var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
 
   var _component_el_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form");
 
@@ -28287,9 +28322,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", _hoisted_8, null, 512
                   /* NEED_PATCH */
-                  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, null, 512
+                  )]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, null, 512
                   /* NEED_PATCH */
-                  )];
+                  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+                    type: "danger",
+                    icon: "el-icon-delete-location",
+                    onClick: $options.clearMarkers
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_12];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }, 8
+                  /* PROPS */
+                  , ["onClick"])])];
                 }),
                 _: 1
                 /* STABLE */
@@ -28298,15 +28346,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 name: "opening_hours"
               }, {
                 title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_10];
+                  return [_hoisted_13];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.opening_hours, function (data) {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.opening_hours, function (data) {
                     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
                       key: data.day
-                    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
+                    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
                     /* TEXT */
-                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
                       modelValue: data.full_day_open,
                       "onUpdate:modelValue": function onUpdateModelValue($event) {
                         return data.full_day_open = $event;
@@ -28316,7 +28364,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                       }
                     }, null, 8
                     /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
                       modelValue: data.full_day_close,
                       "onUpdate:modelValue": function onUpdateModelValue($event) {
                         return data.full_day_close = $event;
@@ -28326,7 +28374,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                       }
                     }, null, 8
                     /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
                       modelValue: data.open_at,
                       "onUpdate:modelValue": function onUpdateModelValue($event) {
                         return data.open_at = $event;
@@ -28337,7 +28385,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                       placeholder: "Open time"
                     }, null, 8
                     /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
                       modelValue: data.close_at,
                       "onUpdate:modelValue": function onUpdateModelValue($event) {
                         return data.close_at = $event;
@@ -28383,12 +28431,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
             type: "warning",
             onClick: $options.cancel
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_19, _hoisted_20];
+              return [_hoisted_22, _hoisted_23];
             }),
             _: 1
             /* STABLE */
@@ -28400,7 +28448,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onClick: $options.submit
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_21, _hoisted_22];
+              return [_hoisted_24, _hoisted_25];
             }),
             _: 1
             /* STABLE */

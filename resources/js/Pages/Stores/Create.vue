@@ -59,11 +59,19 @@
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
 
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2 px-4">
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2">
                                     <input ref="placesAutocomplete" type="text" placeholder="Search place" class="w-full">
                                 </div>
 
+                                <li class="mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full">
+                                    <i class="el-icon-info"></i> Click <strong>on map</strong> to place marker (<i class="el-icon-location-information"></i>) to mark the store location!
+                                </li>
+
                                 <div ref="map" class="mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"></div>
+
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right">
+                                    <el-button type="danger" icon="el-icon-delete-location" @click="clearMarkers">Remove Markers</el-button>
+                                </div>
                             </el-collapse-item>
                         
                             <el-collapse-item name="opening_hours">
@@ -260,6 +268,16 @@
                 data.open_at = null;
                 data.close_at = null;
             },
+            clearMarkers() {
+                // Clear previous marker
+                if ($markers.length > 0) {
+                    for (let i = 0; i < $markers.length; i++) {
+                        $markers[i].setMap(null);
+                    }
+
+                    $markers = [];
+                }
+            },
             submit() {
                 this.$inertia.post(route('manage.stores.store'), this.form);
             },
@@ -276,14 +294,10 @@
                     });
 
                     $map.addListener("click", (e) => {
-                        // Clear previous marker
-                        if ($markers.length > 0) {
-                            for (let i = 0; i < $markers.length; i++) {
-                                $markers[i].setMap(null);
-                            }
+                        $map.setCenter(e.latLng);
+                        $map.setZoom(20);
 
-                            $markers = [];
-                        }
+                        this.clearMarkers();
 
                         // Set new marker
                         const marker = new google.maps.Marker({
@@ -309,9 +323,24 @@
                         const selectedPlace = autocomplete.getPlace();
                         const selectedPlaceLat = selectedPlace.geometry.location.lat();
                         const selectedPlaceLng = selectedPlace.geometry.location.lng();
+                        const selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
 
-                        $map.setCenter(new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng));
+                        $map.setCenter(selectedPlaceLatLng);
                         $map.setZoom(20);
+
+                        this.clearMarkers();
+
+                        // Set new marker
+                        const marker = new google.maps.Marker({
+                            position: selectedPlaceLatLng,
+                            map: $map,
+                            title: "Store location"
+                        });
+
+                        this.form.latitude = selectedPlaceLat;
+                        this.form.longitude = selectedPlaceLng;
+
+                        $markers.push(marker);
                     });
                 });
             });
