@@ -59,6 +59,31 @@
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
 
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2">
+                                    <el-form-item label="District">
+                                        <el-select v-model="form.district_id" placeholder="Select district" class="w-full">
+                                            <el-option
+                                                v-for="district in districts"
+                                                :key="district.id"
+                                                :label="district.name"
+                                                :value="district.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+
+                                    <el-form-item label="Area">
+                                        <el-input placeholder="Select area" v-model="form.area_id"></el-input>
+                                        <!-- <el-select v-model="form.area_id" placeholder="Select area">
+                                            <el-option
+                                                v-for="district in districts"
+                                                :key="district.id"
+                                                :label="district.name"
+                                                :value="district.id">
+                                            </el-option>
+                                        </el-select> -->
+                                    </el-form-item>
+                                </div>
+
                                 <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2">
                                     <input ref="placesAutocomplete" type="text" placeholder="Search place" class="w-full">
                                 </div>
@@ -172,6 +197,9 @@
         components: {
             AppLayout
         },
+        props: {
+            districts: Object
+        },
         data() {
             return {
                 expanded: [ 'general_details', 'opening_hours' ],
@@ -187,6 +215,8 @@
                     email: '',
                     br_no: '',
                     special_notes: '',
+                    district_id: null,
+                    area_id: null,
                     latitude: null,
                     longitude: null,
                     opening_hours: [

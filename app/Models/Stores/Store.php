@@ -3,6 +3,8 @@
 namespace App\Models\Stores;
 
 use App\Models\User;
+use App\Models\Districts\District;
+use App\Models\Areas\Area;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -55,7 +57,9 @@ class Store extends Model
         'status',
         'admin',
         'creator',
-        'opening_hours'
+        'opening_hours',
+        'district',
+        'area'
     ];
 
     protected $searchable = [
@@ -88,5 +92,21 @@ class Store extends Model
     public function openingHours()
     {
         return $this->hasMany(OpeningHour::class);
-    }    
+    }
+
+    /**
+     * Get the district that the store belongs to.
+     */
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    /**
+     * Get the area that the store belongs to.
+     */
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 }
