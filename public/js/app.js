@@ -1,6 +1,314 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@googlemaps/js-api-loader/dist/index.esm.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DEFAULT_ID": () => (/* binding */ DEFAULT_ID),
+/* harmony export */   "Loader": () => (/* binding */ Loader)
+/* harmony export */ });
+// do not edit .js files directly - edit src/index.jst
+
+
+
+var fastDeepEqual = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+/**
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at.
+ *
+ *      Http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const DEFAULT_ID = "__googleMapsScriptId";
+/**
+ * [[Loader]] makes it easier to add Google Maps JavaScript API to your application
+ * dynamically using
+ * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+ * It works by dynamically creating and appending a script node to the the
+ * document head and wrapping the callback function so as to return a promise.
+ *
+ * ```
+ * const loader = new Loader({
+ *   apiKey: "",
+ *   version: "weekly",
+ *   libraries: ["places"]
+ * });
+ *
+ * loader.load().then(() => {
+ *   const map = new google.maps.Map(...)
+ * })
+ * ```
+ */
+class Loader {
+    /**
+     * Creates an instance of Loader using [[LoaderOptions]]. No defaults are set
+     * using this library, instead the defaults are set by the Google Maps
+     * JavaScript API server.
+     *
+     * ```
+     * const loader = Loader({apiKey, version: 'weekly', libraries: ['places']});
+     * ```
+     */
+    constructor({ apiKey, channel, client, id = DEFAULT_ID, libraries = [], language, region, version, mapIds, nonce, retries = 3, url = "https://maps.googleapis.com/maps/api/js", }) {
+        this.CALLBACK = "__googleMapsCallback";
+        this.callbacks = [];
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.version = version;
+        this.apiKey = apiKey;
+        this.channel = channel;
+        this.client = client;
+        this.id = id || DEFAULT_ID; // Do not allow empty string
+        this.libraries = libraries;
+        this.language = language;
+        this.region = region;
+        this.mapIds = mapIds;
+        this.nonce = nonce;
+        this.retries = retries;
+        this.url = url;
+        if (Loader.instance) {
+            if (!fastDeepEqual(this.options, Loader.instance.options)) {
+                throw new Error(`Loader must not be called again with different options. ${JSON.stringify(this.options)} !== ${JSON.stringify(Loader.instance.options)}`);
+            }
+            return Loader.instance;
+        }
+        Loader.instance = this;
+    }
+    get options() {
+        return {
+            version: this.version,
+            apiKey: this.apiKey,
+            channel: this.channel,
+            client: this.client,
+            id: this.id,
+            libraries: this.libraries,
+            language: this.language,
+            region: this.region,
+            mapIds: this.mapIds,
+            nonce: this.nonce,
+            url: this.url,
+        };
+    }
+    get failed() {
+        return this.done && !this.loading && this.errors.length >= this.retries + 1;
+    }
+    /**
+     * CreateUrl returns the Google Maps JavaScript API script url given the [[LoaderOptions]].
+     *
+     * @ignore
+     */
+    createUrl() {
+        let url = this.url;
+        url += `?callback=${this.CALLBACK}`;
+        if (this.apiKey) {
+            url += `&key=${this.apiKey}`;
+        }
+        if (this.channel) {
+            url += `&channel=${this.channel}`;
+        }
+        if (this.client) {
+            url += `&client=${this.client}`;
+        }
+        if (this.libraries.length > 0) {
+            url += `&libraries=${this.libraries.join(",")}`;
+        }
+        if (this.language) {
+            url += `&language=${this.language}`;
+        }
+        if (this.region) {
+            url += `&region=${this.region}`;
+        }
+        if (this.version) {
+            url += `&v=${this.version}`;
+        }
+        if (this.mapIds) {
+            url += `&map_ids=${this.mapIds.join(",")}`;
+        }
+        return url;
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     */
+    load() {
+        return this.loadPromise();
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     *
+     * @ignore
+     */
+    loadPromise() {
+        return new Promise((resolve, reject) => {
+            this.loadCallback((err) => {
+                if (!err) {
+                    resolve();
+                }
+                else {
+                    reject(err);
+                }
+            });
+        });
+    }
+    /**
+     * Load the Google Maps JavaScript API script with a callback.
+     */
+    loadCallback(fn) {
+        this.callbacks.push(fn);
+        this.execute();
+    }
+    /**
+     * Set the script on document.
+     */
+    setScript() {
+        if (document.getElementById(this.id)) {
+            // TODO wrap onerror callback for cases where the script was loaded elsewhere
+            this.callback();
+            return;
+        }
+        const url = this.createUrl();
+        const script = document.createElement("script");
+        script.id = this.id;
+        script.type = "text/javascript";
+        script.src = url;
+        script.onerror = this.loadErrorCallback.bind(this);
+        script.defer = true;
+        script.async = true;
+        if (this.nonce) {
+            script.nonce = this.nonce;
+        }
+        document.head.appendChild(script);
+    }
+    deleteScript() {
+        const script = document.getElementById(this.id);
+        if (script) {
+            script.remove();
+        }
+    }
+    /**
+     * Reset the loader state.
+     */
+    reset() {
+        this.deleteScript();
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.onerrorEvent = null;
+    }
+    resetIfRetryingFailed() {
+        if (this.failed) {
+            this.reset();
+        }
+    }
+    loadErrorCallback(e) {
+        this.errors.push(e);
+        if (this.errors.length <= this.retries) {
+            const delay = this.errors.length * Math.pow(2, this.errors.length);
+            console.log(`Failed to load Google Maps script, retrying in ${delay} ms.`);
+            setTimeout(() => {
+                this.deleteScript();
+                this.setScript();
+            }, delay);
+        }
+        else {
+            this.onerrorEvent = e;
+            this.callback();
+        }
+    }
+    setCallback() {
+        window.__googleMapsCallback = this.callback.bind(this);
+    }
+    callback() {
+        this.done = true;
+        this.loading = false;
+        this.callbacks.forEach((cb) => {
+            cb(this.onerrorEvent);
+        });
+        this.callbacks = [];
+    }
+    execute() {
+        this.resetIfRetryingFailed();
+        if (this.done) {
+            this.callback();
+        }
+        else {
+            // short circuit and warn if google.maps is already loaded
+            if (window.google && window.google.maps && window.google.maps.version) {
+                console.warn("Google Maps already loaded outside @googlemaps/js-api-loader." +
+                    "This may result in undesirable behavior as options and script parameters may not match.");
+                this.callback();
+                return;
+            }
+            if (this.loading) ;
+            else {
+                this.loading = true;
+                this.setCallback();
+                this.setScript();
+            }
+        }
+    }
+}
+
+
+//# sourceMappingURL=index.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@inertiajs/inertia-vue3/dist/index.js":
 /*!************************************************************!*\
   !*** ./node_modules/@inertiajs/inertia-vue3/dist/index.js ***!
@@ -22633,13 +22941,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
+/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
 
+
+var googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
+
+var makeRange = function makeRange(start, end) {
+  var result = [];
+
+  for (var i = start; i <= end; i++) {
+    result.push(i);
+  }
+
+  return result;
+};
+
+var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__.Loader({
+  apiKey: googleMapApiKey,
+  version: 3.43,
+  libraries: ["places"]
+});
+var $map;
+var $markers = [];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
+      expanded: ['general_details', 'opening_hours'],
+      place: null,
       form: {
         code: '',
         name: '',
@@ -22650,17 +22981,152 @@ __webpack_require__.r(__webpack_exports__);
         fax_no: '',
         email: '',
         br_no: '',
-        special_notes: ''
+        special_notes: '',
+        latitude: null,
+        longitude: null,
+        opening_hours: [{
+          'day': "Monday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Tuesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Wednesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Thursday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Friday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Saturday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Sunday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }]
       }
     };
   },
   methods: {
+    disabledSeconds: function disabledSeconds() {
+      return makeRange(1, 59);
+    },
+    changedFullDayOpen: function changedFullDayOpen(data) {
+      data.full_day_close = false;
+      data.picker_disabled = data.full_day_open;
+      this.resetOpeningHours(data);
+    },
+    changedFullDayClose: function changedFullDayClose(data) {
+      data.full_day_open = false;
+      data.picker_disabled = data.full_day_close;
+      this.resetOpeningHours(data);
+    },
+    resetOpeningHours: function resetOpeningHours(data) {
+      data.open_at = null;
+      data.close_at = null;
+    },
+    clearMarkers: function clearMarkers() {
+      // Clear previous marker
+      if ($markers.length > 0) {
+        for (var i = 0; i < $markers.length; i++) {
+          $markers[i].setMap(null);
+        }
+
+        $markers = [];
+      }
+    },
     submit: function submit() {
       this.$inertia.post(route('manage.stores.store'), this.form);
     },
     cancel: function cancel() {
       this.$inertia.get(route('manage.stores.index'));
     }
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      var _this = this;
+
+      mapLoader.load().then(function () {
+        $map = new google.maps.Map(_this.$refs.map, {
+          center: {
+            lat: 6.8784116,
+            lng: 79.9405166
+          },
+          zoom: 10
+        });
+        $map.addListener("click", function (e) {
+          $map.setCenter(e.latLng);
+          $map.setZoom(20);
+
+          _this.clearMarkers(); // Set new marker
+
+
+          var marker = new google.maps.Marker({
+            position: e.latLng,
+            map: $map,
+            title: "Store location"
+          });
+          _this.form.latitude = e.latLng.lat();
+          _this.form.longitude = e.latLng.lng();
+          $markers.push(marker);
+        });
+        var autocompleteInput = _this.$refs.placesAutocomplete;
+        var autocompleteOptions = {
+          fields: ["place_id", "formatted_address", "geometry", "icon", "name"]
+        };
+        var autocomplete = new google.maps.places.Autocomplete(autocompleteInput, autocompleteOptions);
+        autocomplete.addListener("place_changed", function () {
+          var selectedPlace = autocomplete.getPlace();
+          var selectedPlaceLat = selectedPlace.geometry.location.lat();
+          var selectedPlaceLng = selectedPlace.geometry.location.lng();
+          var selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
+          $map.setCenter(selectedPlaceLatLng);
+          $map.setZoom(20);
+
+          _this.clearMarkers(); // Set new marker
+
+
+          var marker = new google.maps.Marker({
+            position: selectedPlaceLatLng,
+            map: $map,
+            title: "Store location"
+          });
+          _this.form.latitude = selectedPlaceLat;
+          _this.form.longitude = selectedPlaceLng;
+          $markers.push(marker);
+        });
+      });
+    });
   }
 });
 
@@ -27529,28 +27995,123 @@ var _hoisted_4 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg p-4"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-tickets"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" General Details")], -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-map-location"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Location/Regional Information")], -1
+/* HOISTED */
+);
+
+var _hoisted_7 = {
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2"
+};
+var _hoisted_8 = {
+  ref: "placesAutocomplete",
+  type: "text",
+  placeholder: "Search place",
+  "class": "w-full"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", {
+  "class": "mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-info"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Click "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("strong", null, "on map"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" to place marker ("), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-location-information"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(") to mark the store location! ")], -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
+  ref: "map",
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"
+};
+var _hoisted_11 = {
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right"
+};
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Remove Markers");
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-alarm-clock"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opening Hours")], -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "mx-auto border-collapse my-4"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
+  "class": "border-b border-gray-300"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open 24 Hours"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Closed Full Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open Time"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Close Time")], -1
+/* HOISTED */
+);
+
+var _hoisted_16 = {
+  "class": "px-3 py-1"
+};
+var _hoisted_17 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_18 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_19 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_20 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_21 = {
+  "class": "mt-5 flex justify-between overflow-hidden"
+};
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-close el-icon-left text-red-500"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-input");
 
   var _component_el_form_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form-item");
 
+  var _component_el_collapse_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse-item");
+
   var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
+
+  var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
+
+  var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
+
+  var _component_el_collapse = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse");
 
   var _component_el_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form");
 
@@ -27567,224 +28128,334 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "label-width": "160px"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Code"
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse, {
+            modelValue: $data.expanded,
+            "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+              return $data.expanded = $event;
+            })
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter store code",
-                name: "code",
-                modelValue: $data.form.code,
-                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-                  return $data.form.code = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Name"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter store name",
-                name: "name",
-                modelValue: $data.form.name,
-                "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-                  return $data.form.name = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Description"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter additional information",
-                name: "description",
-                modelValue: $data.form.description,
-                "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-                  return $data.form.description = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Address"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter store address",
-                name: "address",
-                modelValue: $data.form.address,
-                "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-                  return $data.form.address = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Phone No (Fixed)"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter fixed no",
-                name: "fixed_no",
-                modelValue: $data.form.fixed_no,
-                "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-                  return $data.form.fixed_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Phone No (Mobile)"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter mobile no",
-                name: "mobile_no",
-                modelValue: $data.form.mobile_no,
-                "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
-                  return $data.form.mobile_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Fax No"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter fax no",
-                name: "fax_no",
-                modelValue: $data.form.fax_no,
-                "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-                  return $data.form.fax_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Email"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter email",
-                name: "email",
-                modelValue: $data.form.email,
-                "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-                  return $data.form.email = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "BR No"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                placeholder: "Enter BR no",
-                name: "br_no",
-                modelValue: $data.form.br_no,
-                "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-                  return $data.form.br_no = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
-            label: "Notes"
-          }, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                type: "textarea",
-                rows: 2,
-                placeholder: "Enter special notes",
-                name: "notes",
-                modelValue: $data.form.special_notes,
-                "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
-                  return $data.form.special_notes = $event;
-                })
-              }, null, 8
-              /* PROPS */
-              , ["modelValue"])];
-            }),
-            _: 1
-            /* STABLE */
-
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, null, {
-            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
-                type: "warning",
-                onClick: $options.cancel
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "general_details"
               }, {
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_5];
+                }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_5, _hoisted_6];
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Code"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter store code",
+                        name: "code",
+                        modelValue: $data.form.code,
+                        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                          return $data.form.code = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Name"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter store name",
+                        name: "name",
+                        modelValue: $data.form.name,
+                        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+                          return $data.form.name = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Description"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter additional information",
+                        name: "description",
+                        modelValue: $data.form.description,
+                        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+                          return $data.form.description = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Address"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter store address",
+                        name: "address",
+                        modelValue: $data.form.address,
+                        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                          return $data.form.address = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Phone No (Fixed)"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter fixed no",
+                        name: "fixed_no",
+                        modelValue: $data.form.fixed_no,
+                        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+                          return $data.form.fixed_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Phone No (Mobile)"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter mobile no",
+                        name: "mobile_no",
+                        modelValue: $data.form.mobile_no,
+                        "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+                          return $data.form.mobile_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Fax No"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter fax no",
+                        name: "fax_no",
+                        modelValue: $data.form.fax_no,
+                        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+                          return $data.form.fax_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Email"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter email",
+                        name: "email",
+                        modelValue: $data.form.email,
+                        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+                          return $data.form.email = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "BR No"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        placeholder: "Enter BR no",
+                        name: "br_no",
+                        modelValue: $data.form.br_no,
+                        "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+                          return $data.form.br_no = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  })];
                 }),
                 _: 1
                 /* STABLE */
 
-              }, 8
-              /* PROPS */
-              , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
-                type: "primary",
-                onClick: $options.submit
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "location_info"
               }, {
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_6];
+                }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_7, _hoisted_8];
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", _hoisted_8, null, 512
+                  /* NEED_PATCH */
+                  )]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, null, 512
+                  /* NEED_PATCH */
+                  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+                    type: "danger",
+                    icon: "el-icon-delete-location",
+                    onClick: $options.clearMarkers
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [_hoisted_12];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  }, 8
+                  /* PROPS */
+                  , ["onClick"])])];
                 }),
                 _: 1
                 /* STABLE */
 
-              }, 8
-              /* PROPS */
-              , ["onClick"])];
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse_item, {
+                name: "opening_hours"
+              }, {
+                title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [_hoisted_13];
+                }),
+                "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.opening_hours, function (data) {
+                    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
+                      key: data.day
+                    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
+                    /* TEXT */
+                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                      modelValue: data.full_day_open,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.full_day_open = $event;
+                      },
+                      onChange: function onChange($event) {
+                        return $options.changedFullDayOpen(data);
+                      }
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+                      modelValue: data.full_day_close,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.full_day_close = $event;
+                      },
+                      onChange: function onChange($event) {
+                        return $options.changedFullDayClose(data);
+                      }
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                      modelValue: data.open_at,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.open_at = $event;
+                      },
+                      format: "HH:mm",
+                      disabled: data.picker_disabled,
+                      "disabled-seconds": $options.disabledSeconds,
+                      placeholder: "Open time"
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+                      modelValue: data.close_at,
+                      "onUpdate:modelValue": function onUpdateModelValue($event) {
+                        return data.close_at = $event;
+                      },
+                      format: "HH:mm",
+                      disabled: data.picker_disabled,
+                      "disabled-seconds": $options.disabledSeconds,
+                      placeholder: "Close time"
+                    }, null, 8
+                    /* PROPS */
+                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])])]);
+                  }), 128
+                  /* KEYED_FRAGMENT */
+                  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Notes"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
+                        type: "textarea",
+                        rows: 2,
+                        placeholder: "Enter special notes",
+                        name: "notes",
+                        modelValue: $data.form.special_notes,
+                        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                          return $data.form.special_notes = $event;
+                        })
+                      }, null, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
+                  })];
+                }),
+                _: 1
+                /* STABLE */
+
+              })];
             }),
             _: 1
             /* STABLE */
 
-          })];
+          }, 8
+          /* PROPS */
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            type: "warning",
+            onClick: $options.cancel
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_22, _hoisted_23];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            type: "primary",
+            onClick: $options.submit
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_24, _hoisted_25];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"])])];
         }),
         _: 1
         /* STABLE */

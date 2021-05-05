@@ -8,6 +8,7 @@ use App\Models\Stores\StoresRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Throwable;
 
@@ -84,6 +85,8 @@ class StoreController extends Controller
                 'name',
                 'description',
                 'address',
+                'latitude',
+                'longitude',
                 'fixed_no',
                 'mobile_no',
                 'fax_no',
@@ -95,7 +98,29 @@ class StoreController extends Controller
             $data['status'] = 0;
             $data['created_by'] = $user->id;
 
-            $this->model->create($data);
+            $store = $this->model->create($data);
+
+            if ($request->has('opening_hours') && count($request->opening_hours) > 0) {
+                foreach ($request->opening_hours as $row) {
+                    $insert = collect($row)->only([
+                        'day',
+                        'open_at',
+                        'close_at',
+                        'full_day_open',
+                        'full_day_close'
+                    ])->toArray();
+
+                    $open_at = Carbon::parse($insert['open_at']);
+                    $open_time = $open_at->toTimeString();
+                    $insert['open_at'] = (!empty($insert['open_at'])) ? $open_time : null;
+
+                    $close_at = Carbon::parse($insert['close_at']);
+                    $close_time = $close_at->toTimeString();
+                    $insert['close_at'] = (!empty($insert['close_at'])) ? $close_time : null;
+
+                    $store->openingHours()->create($insert);
+                }
+            }
 
             $request->session()->flash('flash.banner', 'Success - Store created successfully!');
             $request->session()->flash('flash.bannerStyle', 'success');
