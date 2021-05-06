@@ -1,0 +1,40 @@
+header {
+    background-image: linear-gradient(to bottom, #000000c2, #0000005f), url('../../assets/images/header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+
+    nav {
+        li {
+            margin: 14px 10px 0 24px;
+        }
+
+        .search {
+            width: 300px;
+        }
+
+        .logo {
+            width: 120px;
+            margin-right: 20px;
+        }
+    }
+}
+
+#about .wrapper .featured-image {
+    background-image: url('../../assets/images/about.jpg');
+    min-height: 50vh;
+    height: auto;
+
+    .feedback-container {
+        left: -30px;
+        bottom: -20px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .dark\:bg-gray-900 {
+        background-color: #1a202c;
+        background-color: rgba(26, 32, 44, var(--tw-bg-opacity));
+    }
+}
