@@ -3,7 +3,7 @@
         <header class="overflow-hidden w-full relative">
             <div class="container mx-auto my-4 h-full overflow-hidden relative">
                 <nav class="inline-flex text-theme-light font-bold text-xl">
-                    <img alt="Logo" src="../../assets/images/logo.png" class="logo">
+                    <img alt="Logo" src="../../assets/images/logo-only-logo.png" class="logo">
 
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#">Explore</a></li>
@@ -95,7 +95,7 @@
             <div class="w-full py-4 px-0 bg-black h-auto overflow-hidden">
                 <h2 class="container mx-auto text-white text-3xl font-black mb-2">Categories</h2>
 
-                
+
             </div>
         </div>
     </div>

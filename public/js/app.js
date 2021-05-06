@@ -28779,7 +28779,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _assets_images_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/images/logo.png */ "./resources/assets/images/logo.png");
+/* harmony import */ var _assets_images_logo_only_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/images/logo-only-logo.png */ "./resources/assets/images/logo-only-logo.png");
 /* harmony import */ var _assets_images_feedback_user_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/images/feedback_user.jpg */ "./resources/assets/images/feedback_user.jpg");
 
 
@@ -28804,7 +28804,7 @@ var _hoisted_4 = {
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
   alt: "Logo",
-  src: _assets_images_logo_png__WEBPACK_IMPORTED_MODULE_1__.default,
+  src: _assets_images_logo_only_logo_png__WEBPACK_IMPORTED_MODULE_1__.default,
   "class": "logo"
 }, null, -1
 /* HOISTED */
@@ -65112,10 +65112,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/images/logo.png":
-/*!******************************************!*\
-  !*** ./resources/assets/images/logo.png ***!
-  \******************************************/
+/***/ "./resources/assets/images/logo-only-logo.png":
+/*!****************************************************!*\
+  !*** ./resources/assets/images/logo-only-logo.png ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65123,7 +65123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo.png?b618ae90bdcadbe4ea6980333e9e5c07");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo-only-logo.png?048179a127db80374cb01ad4d8ee7e6b");
 
 /***/ }),
 
