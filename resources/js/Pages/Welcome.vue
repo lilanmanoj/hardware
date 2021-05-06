@@ -2,25 +2,27 @@
     <div class="bg-theme-light relative overflow-hidden m-0 p-0 w-full">
         <header class="overflow-hidden w-full relative">
             <div class="container mx-auto my-4 h-full overflow-hidden relative">
-                <nav class="inline-flex text-theme-light font-bold text-xl">
+                <nav class="inline-flex text-theme-light font-bold text-xl list-none">
                     <img alt="Logo" src="../../assets/images/logo-only-logo.png" class="logo">
 
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#">Explore</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <ul class="hidden fixed md:static md:inline-flex text-theme-light font-bold text-xl list-none">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Explore</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
 
-                    <li>
+                    <li class="hidden md:block">
                         <input type="text" placeholder="Search" class="search bg-transparent flex-grow border-gray-300 rounded-full pl-6">
                     </li>
 
-                    <div class="absolute right-0 mt-5 text-lg" v-if="$page.props.user">
+                    <div class="hidden lg:block absolute right-0 mt-5 text-lg" v-if="$page.props.user">
                         <inertia-link href="/dashboard" class="bg-transparent border border-theme-yellow rounded-lg font-bold text-theme-yellow py-2 px-4">
                             Dashboard
                         </inertia-link>
                     </div>
 
                     <template v-else>
-                        <div class="absolute right-0 mt-5 text-lg">
+                        <div class="hidden lg:block absolute right-0 mt-5 text-lg">
                             <inertia-link v-if="canRegister" :href="route('register')" class="bg-transparent border border-theme-yellow rounded-lg font-bold text-theme-yellow ml-5 py-1 px-6">
                                 Sign Up
                             </inertia-link>
@@ -30,6 +32,8 @@
                             </inertia-link>
                         </div>
                     </template>
+
+                    <a><img src="../../assets/images/hamburger_icon.png" ></a>
                 </nav>
                 
                 <div class="overflow-hidden transform translate-y-1/2">
@@ -101,51 +105,6 @@
     </div>
 </template>
 
-<style scoped>
-    header {
-        background-image: linear-gradient(to bottom, #000000c2, #0000005f), url('../../assets/images/header.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        height: 90vh;
-    }
-
-    header nav {
-        list-style: none;
-    }
-
-    header nav li {
-        margin: 14px 10px 0 24px;
-    }
-
-    header nav .search {
-        width: 300px;
-    }
-
-    header nav .logo {
-        width: 120px;
-        margin-right: 20px;
-    }
-
-    #about .wrapper .featured-image {
-        background-image: url('../../assets/images/about.jpg');
-        min-height: 50vh;
-        height: auto;
-    }
-
-    #about .wrapper .featured-image .feedback-container {
-        left: -30px;
-        bottom: -20px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .dark\:bg-gray-900 {
-            background-color: #1a202c;
-            background-color: rgba(26, 32, 44, var(--tw-bg-opacity));
-        }
-    }
-</style>
-
 <script>
     export default {
         props: {
@@ -160,3 +119,7 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    @import "../../sass/welcome.scss";
+</style>
