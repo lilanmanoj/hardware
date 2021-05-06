@@ -28780,6 +28780,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _assets_images_logo_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/images/logo.png */ "./resources/assets/images/logo.png");
+/* harmony import */ var _assets_images_feedback_user_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/images/feedback_user.jpg */ "./resources/assets/images/feedback_user.jpg");
+
 
 
 
@@ -28791,11 +28793,10 @@ var _hoisted_1 = {
   "class": "bg-theme-light relative overflow-hidden m-0 p-0 w-full"
 };
 var _hoisted_2 = {
-  id: "header",
   "class": "overflow-hidden w-full relative"
 };
 var _hoisted_3 = {
-  "class": "my-4 mx-auto w-4/5 h-full relative"
+  "class": "container mx-auto my-4 h-full overflow-hidden relative"
 };
 var _hoisted_4 = {
   "class": "inline-flex text-theme-light font-bold text-xl"
@@ -28851,14 +28852,60 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Sign In ");
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"transform translate-y-1/2\" data-v-317d1a6e><h1 class=\"text-7xl text-theme-light font-extrabold w-1/2\" data-v-317d1a6e>Lorem ipsum dolor</h1><h1 class=\"text-6xl text-theme-yellow font-extrabold w-2/5\" data-v-317d1a6e>sit amet, eos laudem</h1><p class=\"text-base text-theme-light font-bold text-opacity-80 w-1/2\" data-v-317d1a6e>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum diam in leo lacinia gravida. Etiam luctus velit non odio egestas, eu luctus massa tempus.</p><form class=\"bg-theme-light w-1/2 mt-12 p-6 rounded-lg\" data-v-317d1a6e><h4 class=\"text-normal font-bold\" data-v-317d1a6e>Join Now Today!</h4><div class=\"flex gap-x-4 mt-3\" data-v-317d1a6e><input type=\"text\" placeholder=\"Enter your email address here\" class=\"flex-grow border-gray-300 rounded-full pl-6\" data-v-317d1a6e><button type=\"submit\" class=\"bg-theme-yellow px-5 rounded-lg font-bold\" data-v-317d1a6e>Join Now</button></div></form></div>", 1);
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"overflow-hidden transform translate-y-1/2\" data-v-317d1a6e><h1 class=\"text-7xl text-theme-light font-extrabold w-1/2\" data-v-317d1a6e>Lorem ipsum dolor</h1><h1 class=\"text-6xl text-theme-yellow font-extrabold w-2/5\" data-v-317d1a6e>sit amet, eos laudem</h1><p class=\"text-base text-theme-light font-bold text-opacity-80 w-1/2\" data-v-317d1a6e>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum diam in leo lacinia gravida. Etiam luctus velit non odio egestas, eu luctus massa tempus.</p><form class=\"bg-theme-light w-1/2 mt-12 p-6 rounded-lg\" data-v-317d1a6e><h4 class=\"text-normal font-bold\" data-v-317d1a6e>Join Now Today!</h4><div class=\"flex gap-x-4 mt-3\" data-v-317d1a6e><input type=\"text\" placeholder=\"Enter your email address here\" class=\"flex-grow border-gray-300 rounded-full pl-6\" data-v-317d1a6e><button type=\"submit\" class=\"bg-theme-yellow px-5 rounded-lg font-bold\" data-v-317d1a6e>Join Now</button></div></form></div>", 1);
 
 var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   id: "about",
-  "class": "overflow-hidden w-full relative"
+  "class": "container mx-auto my-14 relative"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
-  "class": "my-4 mx-auto w-4/5 h-full relative"
-})], -1
+  "class": "wrapper h-auto w-full flex gap-6"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "content w-1/2 py-12 pr-6"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", {
+  "class": "text-theme-yellow text-lg font-semibold mb-2"
+}, "About Us"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
+  "class": "text-black text-3xl font-extrabold mb-8 max-w-xs"
+}, "Well, who we are actually?"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
+  "class": "text-gray-400 mb-4"
+}, " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus fermentum eros sed tincidunt. Donec porta dictum magna, eget eleifend neque mollis mollis. Sed pretium interdum nisi nec dapibus. Phasellus finibus semper porta. Aliquam et dignissim velit, a posuere nisl. Suspendisse scelerisque nulla nec dolor ultrices gravida. "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
+  "class": "text-gray-400 mb-4"
+}, " Quisque aliquet faucibus felis lacinia sagittis. Aliquam consectetur est libero, et tristique urna auctor sed. Suspendisse potenti. Cras ac condimentum ipsum. Vestibulum auctor, ipsum et porta convallis, turpis lectus tempor velit, non tempor purus odio eget quam. Curabitur sed tristique ex. Cras eu augue ac erat sollicitudin posuere ut at mauris. Etiam rhoncus mi in risus mollis, sit amet mollis tortor faucibus. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "featured-image flex-grow bg-center bg-no-repeat bg-cover relative"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "feedback-container bg-black absolute w-1/2 p-6 rounded-md border-2 border-yellow-400"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("blockquote", {
+  "class": "text-sm text-gray-100 italic"
+}, " \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus fermentum eros sed tincidunt. Donec porta dictum magna, eget eleifend neque mollis mollis.\" "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "feedback-client mt-4 flex"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+  "class": "rounded-full h-12 w-12 mr-4",
+  src: _assets_images_feedback_user_jpg__WEBPACK_IMPORTED_MODULE_2__.default
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "flex-grow pb-2"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h5", {
+  "class": "text-white text-base font-bold"
+}, "John Doe"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h6", {
+  "class": "text-yellow-400 text-sm"
+}, "Founder & Ceo, Hardware Store Name")])])])])])], -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  id: "explore",
+  "class": "w-full my-14 relative"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "wrapper container mx-auto h-auto w-full flex gap-6"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "content w-1/2 py-12 pr-6"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", {
+  "class": "text-theme-yellow text-lg font-semibold mb-2"
+}, "Explore"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
+  "class": "text-black text-3xl font-extrabold mb-8 max-w-xs"
+}, "Check out the following categories")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "w-full py-4 px-0 bg-black h-auto overflow-hidden"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
+  "class": "container mx-auto text-white text-3xl font-black mb-2"
+}, "Categories")])], -1
 /* HOISTED */
 );
 
@@ -28867,7 +28914,7 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   var _component_inertia_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("inertia-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("nav", _hoisted_4, [_hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _ctx.$page.props.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("header", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("nav", _hoisted_4, [_hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _ctx.$page.props.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
     href: "/dashboard",
     "class": "bg-transparent border border-theme-yellow rounded-lg font-bold text-theme-yellow py-2 px-4"
   }, {
@@ -28880,7 +28927,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_12, [$props.canRegister ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_inertia_link, {
     key: 0,
     href: _ctx.route('register'),
-    "class": "bg-transparent border border-theme-yellow rounded-lg font-bold text-theme-yellow py-2 px-4"
+    "class": "bg-transparent border border-theme-yellow rounded-lg font-bold text-theme-yellow ml-5 py-1 px-6"
   }, {
     "default": _withId(function () {
       return [_hoisted_13];
@@ -28892,7 +28939,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
   /* PROPS */
   , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_inertia_link, {
     href: _ctx.route('login'),
-    "class": "bg-theme-dark border border-theme-yellow rounded-lg font-bold text-theme-yellow max-h-10 py-2 px-5 ml-5"
+    "class": "bg-theme-dark border border-white rounded-lg font-bold text-theme-yellow max-h-10 ml-5 py-1 px-7"
   }, {
     "default": _withId(function () {
       return [_hoisted_14];
@@ -28902,7 +28949,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   }, 8
   /* PROPS */
-  , ["href"])]))]), _hoisted_15])]), _hoisted_16]);
+  , ["href"])]))]), _hoisted_15])]), _hoisted_16, _hoisted_17]);
 });
 
 /***/ }),
@@ -29024,14 +29071,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _assets_images_header_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/images/header.jpg */ "./resources/assets/images/header.jpg");
+/* harmony import */ var _assets_images_about_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/images/about.jpg */ "./resources/assets/images/about.jpg");
 // Imports
+
 
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_images_header_jpg__WEBPACK_IMPORTED_MODULE_2__.default);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_images_about_jpg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#header[data-v-317d1a6e] {\n        background-image: linear-gradient(to bottom, #000000c2, #0000005f), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n        background-repeat: no-repeat;\n        background-size: cover;\n        background-position: center;\n        height: 90vh;\n}\n#header nav[data-v-317d1a6e] {\n        list-style: none;\n}\n#header nav li[data-v-317d1a6e] {\n        margin: 14px 10px 0 24px;\n}\n#header nav .search[data-v-317d1a6e] {\n        width: 300px;\n}\n#header nav .logo[data-v-317d1a6e] {\n        width: 120px;\n        margin-right: 20px;\n}\n.bg-gray-100[data-v-317d1a6e] {\n        background-color: #f7fafc;\n        background-color: rgba(247, 250, 252, var(--tw-bg-opacity));\n}\n.text-gray-700[data-v-317d1a6e] {\n        color: #4a5568;\n        color: rgba(74, 85, 104, var(--tw-text-opacity));\n}\n@media (prefers-color-scheme: dark) {\n.dark\\:bg-gray-900[data-v-317d1a6e] {\n            background-color: #1a202c;\n            background-color: rgba(26, 32, 44, var(--tw-bg-opacity));\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nheader[data-v-317d1a6e] {\n        background-image: linear-gradient(to bottom, #000000c2, #0000005f), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n        background-repeat: no-repeat;\n        background-size: cover;\n        background-position: center;\n        height: 90vh;\n}\nheader nav[data-v-317d1a6e] {\n        list-style: none;\n}\nheader nav li[data-v-317d1a6e] {\n        margin: 14px 10px 0 24px;\n}\nheader nav .search[data-v-317d1a6e] {\n        width: 300px;\n}\nheader nav .logo[data-v-317d1a6e] {\n        width: 120px;\n        margin-right: 20px;\n}\n#about .wrapper .featured-image[data-v-317d1a6e] {\n        background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n        min-height: 50vh;\n        height: auto;\n}\n#about .wrapper .featured-image .feedback-container[data-v-317d1a6e] {\n        left: -30px;\n        bottom: -20px;\n}\n@media (prefers-color-scheme: dark) {\n.dark\\:bg-gray-900[data-v-317d1a6e] {\n            background-color: #1a202c;\n            background-color: rgba(26, 32, 44, var(--tw-bg-opacity));\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -65014,6 +65064,36 @@ exports.isValidElementNode = isValidElementNode;
 exports.renderBlock = renderBlock;
 exports.renderIf = renderIf;
 
+
+/***/ }),
+
+/***/ "./resources/assets/images/about.jpg":
+/*!*******************************************!*\
+  !*** ./resources/assets/images/about.jpg ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/about.jpg?41f2dcc82b67519775da106625fee6f9");
+
+/***/ }),
+
+/***/ "./resources/assets/images/feedback_user.jpg":
+/*!***************************************************!*\
+  !*** ./resources/assets/images/feedback_user.jpg ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/feedback_user.jpg?b23ac90d0c5e0c4777bb3ae893341671");
 
 /***/ }),
 
