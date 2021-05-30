@@ -61,7 +61,7 @@
 
                                 <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2">
                                     <el-form-item label="District">
-                                        <el-select v-model="form.district_id" placeholder="Select district" class="w-full">
+                                        <el-select v-model="form.district_id" placeholder="Select district" class="w-full" @change="districtChanged">
                                             <el-option
                                                 v-for="district in districts"
                                                 :key="district.id"
@@ -72,15 +72,14 @@
                                     </el-form-item>
 
                                     <el-form-item label="Area">
-                                        <el-input placeholder="Select area" v-model="form.area_id"></el-input>
-                                        <!-- <el-select v-model="form.area_id" placeholder="Select area">
+                                        <el-select v-model="form.area_id" placeholder="Select area" class="w-full">
                                             <el-option
-                                                v-for="district in districts"
-                                                :key="district.id"
-                                                :label="district.name"
-                                                :value="district.id">
+                                                v-for="area in areas"
+                                                :key="area.id"
+                                                :label="area.name"
+                                                :value="area.id">
                                             </el-option>
-                                        </el-select> -->
+                                        </el-select>
                                     </el-form-item>
                                 </div>
 
@@ -171,6 +170,7 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout';
     import { Loader } from '@googlemaps/js-api-loader';
+    import pick from 'lodash/pick';
     
     const googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
 
@@ -198,7 +198,8 @@
             AppLayout
         },
         props: {
-            districts: Object
+            districts: Object,
+            areas: Object
         },
         data() {
             return {
@@ -281,6 +282,10 @@
             }
         },
         methods: {
+            districtChanged() {
+                let district = pick(this.form, 'district_id');
+                this.$inertia.get(this.route('manage.stores.create'), district, { replace: true, preserveState: true, preserveScroll: true });
+            },
             disabledSeconds() {
                 return makeRange(1, 59);
             },

@@ -23185,6 +23185,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/pick */ "./node_modules/lodash/pick.js");
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 var googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
@@ -23211,7 +23214,8 @@ var $markers = [];
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    districts: Object
+    districts: Object,
+    areas: Object
   },
   data: function data() {
     return {
@@ -23286,6 +23290,14 @@ var $markers = [];
     };
   },
   methods: {
+    districtChanged: function districtChanged() {
+      var district = lodash_pick__WEBPACK_IMPORTED_MODULE_2___default()(this.form, 'district_id');
+      this.$inertia.get(this.route('manage.stores.create'), district, {
+        replace: true,
+        preserveState: true,
+        preserveScroll: true
+      });
+    },
     disabledSeconds: function disabledSeconds() {
       return makeRange(1, 59);
     },
@@ -28585,7 +28597,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                           return $data.form.district_id = $event;
                         }),
                         placeholder: "Select district",
-                        "class": "w-full"
+                        "class": "w-full",
+                        onChange: $options.districtChanged
                       }, {
                         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                           return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.districts, function (district) {
@@ -28605,7 +28618,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
                       }, 8
                       /* PROPS */
-                      , ["modelValue"])];
+                      , ["modelValue", "onChange"])];
                     }),
                     _: 1
                     /* STABLE */
@@ -28614,15 +28627,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     label: "Area"
                   }, {
                     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_input, {
-                        placeholder: "Select area",
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_select, {
                         modelValue: $data.form.area_id,
                         "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
                           return $data.form.area_id = $event;
-                        })
-                      }, null, 8
+                        }),
+                        placeholder: "Select area",
+                        "class": "w-full"
+                      }, {
+                        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                          return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.areas, function (area) {
+                            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_el_option, {
+                              key: area.id,
+                              label: area.name,
+                              value: area.id
+                            }, null, 8
+                            /* PROPS */
+                            , ["label", "value"]);
+                          }), 128
+                          /* KEYED_FRAGMENT */
+                          ))];
+                        }),
+                        _: 1
+                        /* STABLE */
+
+                      }, 8
                       /* PROPS */
-                      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <el-select v-model=\"form.area_id\" placeholder=\"Select area\">\n                                            <el-option\n                                                v-for=\"district in districts\"\n                                                :key=\"district.id\"\n                                                :label=\"district.name\"\n                                                :value=\"district.id\">\n                                            </el-option>\n                                        </el-select> ")];
+                      , ["modelValue"])];
                     }),
                     _: 1
                     /* STABLE */
@@ -34196,6 +34227,35 @@ module.exports = baseMatchesProperty;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_basePick.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_basePick.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var basePickBy = __webpack_require__(/*! ./_basePickBy */ "./node_modules/lodash/_basePickBy.js"),
+    hasIn = __webpack_require__(/*! ./hasIn */ "./node_modules/lodash/hasIn.js");
+
+/**
+ * The base implementation of `_.pick` without support for individual
+ * property identifiers.
+ *
+ * @private
+ * @param {Object} object The source object.
+ * @param {string[]} paths The property paths to pick.
+ * @returns {Object} Returns the new object.
+ */
+function basePick(object, paths) {
+  return basePickBy(object, paths, function(value, path) {
+    return hasIn(object, path);
+  });
+}
+
+module.exports = basePick;
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_basePickBy.js":
 /*!********************************************!*\
   !*** ./node_modules/lodash/_basePickBy.js ***!
@@ -35361,6 +35421,32 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
 }
 
 module.exports = equalObjects;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_flatRest.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_flatRest.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var flatten = __webpack_require__(/*! ./flatten */ "./node_modules/lodash/flatten.js"),
+    overRest = __webpack_require__(/*! ./_overRest */ "./node_modules/lodash/_overRest.js"),
+    setToString = __webpack_require__(/*! ./_setToString */ "./node_modules/lodash/_setToString.js");
+
+/**
+ * A specialized version of `baseRest` which flattens the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @returns {Function} Returns the new function.
+ */
+function flatRest(func) {
+  return setToString(overRest(func, undefined, flatten), func + '');
+}
+
+module.exports = flatRest;
 
 
 /***/ }),
@@ -37732,6 +37818,38 @@ function eq(value, other) {
 }
 
 module.exports = eq;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/flatten.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/flatten.js ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var baseFlatten = __webpack_require__(/*! ./_baseFlatten */ "./node_modules/lodash/_baseFlatten.js");
+
+/**
+ * Flattens `array` a single level deep.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to flatten.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * _.flatten([1, [2, [3, [4]], 5]]);
+ * // => [1, 2, [3, [4]], 5]
+ */
+function flatten(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? baseFlatten(array, 1) : [];
+}
+
+module.exports = flatten;
 
 
 /***/ }),
@@ -55878,6 +55996,41 @@ var now = function() {
 };
 
 module.exports = now;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/pick.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/pick.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var basePick = __webpack_require__(/*! ./_basePick */ "./node_modules/lodash/_basePick.js"),
+    flatRest = __webpack_require__(/*! ./_flatRest */ "./node_modules/lodash/_flatRest.js");
+
+/**
+ * Creates an object composed of the picked `object` properties.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The source object.
+ * @param {...(string|string[])} [paths] The property paths to pick.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': '2', 'c': 3 };
+ *
+ * _.pick(object, ['a', 'c']);
+ * // => { 'a': 1, 'c': 3 }
+ */
+var pick = flatRest(function(object, paths) {
+  return object == null ? {} : basePick(object, paths);
+});
+
+module.exports = pick;
 
 
 /***/ }),

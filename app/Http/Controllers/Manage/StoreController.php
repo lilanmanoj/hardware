@@ -41,7 +41,8 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      * 
-     * @return \Illuminate\Http\Response
+     * @param   \Illuminate\Http\Response   $request
+     * @return  \Inertia\Inertia
      */
     public function index(Request $request)
     {
@@ -63,13 +64,22 @@ class StoreController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 
+     * @param   \Illuminate\Http\Response   $request
+     * @return  \Inertia\Inertia
      */
-    public function create()
+    public function create(Request $request)
     {
+        $areas = [];
+
+        if ($request->has('district_id')) {
+            $districtId = $request->input('district_id');
+            $areas = District::find($districtId)->areas()->orderBy('name')->get();
+        }
+
         $data = [
-            'districts' => District::all()
+            'districts' => District::orderBy('name')->get(),
+            'areas' => $areas
         ];
 
         return Inertia::render('Stores/Create', $data);
@@ -78,8 +88,8 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param   \Illuminate\Http\Request    $request
+     * @return  \Illuminate\Support\Facades\Redirect
      */
     public function store(Request $request)
     {
@@ -98,6 +108,8 @@ class StoreController extends Controller
                 'fax_no',
                 'email',
                 'br_no',
+                'district_id',
+                'area_id',
                 'special_notes'
             ]);
 
