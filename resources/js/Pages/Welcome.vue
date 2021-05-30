@@ -2,8 +2,8 @@
     <div class="bg-theme-light relative overflow-hidden m-0 p-0 w-full">
         <header class="overflow-hidden w-full relative">
             <div class="container mx-auto my-4 h-full overflow-hidden relative">
-                <nav class="inline-flex text-theme-light font-bold text-xl list-none">
-                    <img alt="Logo" src="../../assets/images/logo-only-logo.png" class="logo">
+                <nav class="w-full inline-flex justify-between items-center text-theme-light font-bold text-xl list-none px-4">
+                    <img alt="Logo" src="../../assets/images/logo-only-logo.png" class="logo mr-5 h-14 lg:h-32">
 
                     <ul class="hidden fixed md:static md:inline-flex text-theme-light font-bold text-xl list-none">
                         <li><a href="#about">About Us</a></li>
@@ -33,7 +33,7 @@
                         </div>
                     </template>
 
-                    <a><img src="../../assets/images/hamburger_icon.png" ></a>
+                    <a class=""><img src="../../assets/images/hamburger_icon.png" ></a>
                 </nav>
                 
                 <div class="overflow-hidden transform translate-y-1/2">

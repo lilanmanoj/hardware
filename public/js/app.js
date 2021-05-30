@@ -29044,13 +29044,13 @@ var _hoisted_3 = {
   "class": "container mx-auto my-4 h-full overflow-hidden relative"
 };
 var _hoisted_4 = {
-  "class": "inline-flex text-theme-light font-bold text-xl list-none"
+  "class": "w-full inline-flex justify-between items-center text-theme-light font-bold text-xl list-none px-4"
 };
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
   alt: "Logo",
   src: _assets_images_logo_only_logo_png__WEBPACK_IMPORTED_MODULE_1__.default,
-  "class": "logo"
+  "class": "logo mr-5 h-14 lg:h-32"
 }, null, -1
 /* HOISTED */
 );
@@ -29093,7 +29093,9 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Sign In ");
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  "class": ""
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
   src: _assets_images_hamburger_icon_png__WEBPACK_IMPORTED_MODULE_2__.default
 })], -1
 /* HOISTED */
@@ -29413,7 +29415,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_images_header_jpg__WEBPACK_IMPORTED_MODULE_2__.default);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_images_about_jpg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "header[data-v-317d1a6e] {\n  background-image: linear-gradient(to bottom, #000000c2, #0000005f), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  height: 90vh;\n}\nheader nav li[data-v-317d1a6e] {\n  margin: 14px 10px 0 24px;\n}\nheader nav .search[data-v-317d1a6e] {\n  width: 300px;\n}\nheader nav .logo[data-v-317d1a6e] {\n  width: 120px;\n  margin-right: 20px;\n}\n#about .wrapper .featured-image[data-v-317d1a6e] {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  min-height: 50vh;\n  height: auto;\n}\n#about .wrapper .featured-image .feedback-container[data-v-317d1a6e] {\n  left: -30px;\n  bottom: -20px;\n}\n@media (prefers-color-scheme: dark) {\n.dark\\:bg-gray-900[data-v-317d1a6e] {\n    background-color: #1a202c;\n    background-color: rgba(26, 32, 44, var(--tw-bg-opacity));\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "header[data-v-317d1a6e] {\n  background-image: linear-gradient(to bottom, #000000c2, #0000005f), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  height: 90vh;\n}\nheader nav li[data-v-317d1a6e] {\n  margin: 14px 10px 0 24px;\n}\nheader nav .search[data-v-317d1a6e] {\n  width: 300px;\n}\n#about .wrapper .featured-image[data-v-317d1a6e] {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  min-height: 50vh;\n  height: auto;\n}\n#about .wrapper .featured-image .feedback-container[data-v-317d1a6e] {\n  left: -30px;\n  bottom: -20px;\n}\n@media (prefers-color-scheme: dark) {\n.dark\\:bg-gray-900[data-v-317d1a6e] {\n    background-color: #1a202c;\n    background-color: rgba(26, 32, 44, var(--tw-bg-opacity));\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
