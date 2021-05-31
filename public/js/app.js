@@ -21398,6 +21398,92 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      opening_hours: [{
+        'day': "Monday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Tuesday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Wednesday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Thursday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Friday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Saturday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }, {
+        'day': "Sunday",
+        'full_day_open': false,
+        "full_day_close": false,
+        "picker_disabled": false,
+        "open_at": null,
+        "close_at": null
+      }]
+    };
+  },
+  methods: {
+    changedFullDayOpen: function changedFullDayOpen(data) {
+      data.full_day_close = false;
+      data.picker_disabled = data.full_day_open;
+      this.resetOpeningHours(data);
+    },
+    changedFullDayClose: function changedFullDayClose(data) {
+      data.full_day_open = false;
+      data.picker_disabled = data.full_day_close;
+      this.resetOpeningHours(data);
+    },
+    resetOpeningHours: function resetOpeningHours(data) {
+      data.open_at = null;
+      data.close_at = null;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js":
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js ***!
@@ -23184,9 +23270,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
-/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/pick */ "./node_modules/lodash/pick.js");
-/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Components_OpeningHoursPicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpeningHoursPicker */ "./resources/js/Components/OpeningHoursPicker.vue");
+/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/pick */ "./node_modules/lodash/pick.js");
+/* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -23202,7 +23290,7 @@ var makeRange = function makeRange(start, end) {
   return result;
 };
 
-var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_1__.Loader({
+var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_2__.Loader({
   apiKey: googleMapApiKey,
   version: 3.43,
   libraries: ["places"]
@@ -23211,7 +23299,8 @@ var $map;
 var $markers = [];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
+    OpeningHoursPicker: _Components_OpeningHoursPicker__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     districts: Object,
@@ -23291,7 +23380,7 @@ var $markers = [];
   },
   methods: {
     districtChanged: function districtChanged() {
-      var district = lodash_pick__WEBPACK_IMPORTED_MODULE_2___default()(this.form, 'district_id');
+      var district = lodash_pick__WEBPACK_IMPORTED_MODULE_3___default()(this.form, 'district_id');
       this.$inertia.get(this.route('manage.stores.create'), district, {
         replace: true,
         preserveState: true,
@@ -23300,20 +23389,6 @@ var $markers = [];
     },
     disabledSeconds: function disabledSeconds() {
       return makeRange(1, 59);
-    },
-    changedFullDayOpen: function changedFullDayOpen(data) {
-      data.full_day_close = false;
-      data.picker_disabled = data.full_day_open;
-      this.resetOpeningHours(data);
-    },
-    changedFullDayClose: function changedFullDayClose(data) {
-      data.full_day_open = false;
-      data.picker_disabled = data.full_day_close;
-      this.resetOpeningHours(data);
-    },
-    resetOpeningHours: function resetOpeningHours(data) {
-      data.open_at = null;
-      data.close_at = null;
     },
     clearMarkers: function clearMarkers() {
       // Clear previous marker
@@ -23504,6 +23579,114 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10 ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "mx-auto border-collapse my-4"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
+  "class": "border-b border-gray-300"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open 24 Hours"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Closed Full Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Open Time"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
+  "class": "text-left p-3"
+}, "Close Time")], -1
+/* HOISTED */
+);
+
+var _hoisted_3 = {
+  "class": "px-3 py-1"
+};
+var _hoisted_4 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_5 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_6 = {
+  "class": "px-3 py-1 text-center"
+};
+var _hoisted_7 = {
+  "class": "px-3 py-1 text-center"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
+
+  var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("table", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.opening_hours, function (data) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
+      key: data.day
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+      modelValue: data.full_day_open,
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return data.full_day_open = $event;
+      },
+      onChange: function onChange($event) {
+        return $options.changedFullDayOpen(data);
+      }
+    }, null, 8
+    /* PROPS */
+    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+      modelValue: data.full_day_close,
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return data.full_day_close = $event;
+      },
+      onChange: function onChange($event) {
+        return $options.changedFullDayClose(data);
+      }
+    }, null, 8
+    /* PROPS */
+    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+      modelValue: data.open_at,
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return data.open_at = $event;
+      },
+      format: "HH:mm",
+      disabled: data.picker_disabled,
+      "disabled-seconds": _ctx.disabledSeconds,
+      placeholder: "Open time"
+    }, null, 8
+    /* PROPS */
+    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+      modelValue: data.close_at,
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return data.close_at = $event;
+      },
+      format: "HH:mm",
+      disabled: data.picker_disabled,
+      "disabled-seconds": _ctx.disabledSeconds,
+      placeholder: "Close time"
+    }, null, 8
+    /* PROPS */
+    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])]);
+}
 
 /***/ }),
 
@@ -28307,59 +28490,24 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 );
 
 var _hoisted_15 = {
-  "class": "mx-auto border-collapse my-4"
-};
-
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
-  "class": "border-b border-gray-300"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
-  "class": "text-left p-3"
-}, "Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
-  "class": "text-left p-3"
-}, "Open 24 Hours"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
-  "class": "text-left p-3"
-}, "Closed Full Day"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
-  "class": "text-left p-3"
-}, "Open Time"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
-  "class": "text-left p-3"
-}, "Close Time")], -1
-/* HOISTED */
-);
-
-var _hoisted_17 = {
-  "class": "px-3 py-1"
-};
-var _hoisted_18 = {
-  "class": "px-3 py-1 text-center"
-};
-var _hoisted_19 = {
-  "class": "px-3 py-1 text-center"
-};
-var _hoisted_20 = {
-  "class": "px-3 py-1 text-center"
-};
-var _hoisted_21 = {
-  "class": "px-3 py-1 text-center"
-};
-var _hoisted_22 = {
   "class": "mt-5 flex justify-between overflow-hidden"
 };
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-close el-icon-left text-red-500"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-input");
@@ -28374,9 +28522,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
 
-  var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
-
-  var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
+  var _component_opening_hours_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("opening-hours-picker");
 
   var _component_el_collapse = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse");
 
@@ -28687,57 +28833,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                   return [_hoisted_14];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.form.opening_hours, function (data) {
-                    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
-                      key: data.day
-                    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
-                    /* TEXT */
-                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
-                      modelValue: data.full_day_open,
-                      "onUpdate:modelValue": function onUpdateModelValue($event) {
-                        return data.full_day_open = $event;
-                      },
-                      onChange: function onChange($event) {
-                        return $options.changedFullDayOpen(data);
-                      }
-                    }, null, 8
-                    /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
-                      modelValue: data.full_day_close,
-                      "onUpdate:modelValue": function onUpdateModelValue($event) {
-                        return data.full_day_close = $event;
-                      },
-                      onChange: function onChange($event) {
-                        return $options.changedFullDayClose(data);
-                      }
-                    }, null, 8
-                    /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
-                      modelValue: data.open_at,
-                      "onUpdate:modelValue": function onUpdateModelValue($event) {
-                        return data.open_at = $event;
-                      },
-                      format: "HH:mm",
-                      disabled: data.picker_disabled,
-                      "disabled-seconds": $options.disabledSeconds,
-                      placeholder: "Open time"
-                    }, null, 8
-                    /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
-                      modelValue: data.close_at,
-                      "onUpdate:modelValue": function onUpdateModelValue($event) {
-                        return data.close_at = $event;
-                      },
-                      format: "HH:mm",
-                      disabled: data.picker_disabled,
-                      "disabled-seconds": $options.disabledSeconds,
-                      placeholder: "Close time"
-                    }, null, 8
-                    /* PROPS */
-                    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])])]);
-                  }), 128
-                  /* KEYED_FRAGMENT */
-                  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_picker), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
                     label: "Notes"
                   }, {
                     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -28769,12 +28865,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
             type: "warning",
             onClick: $options.cancel
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_23, _hoisted_24];
+              return [_hoisted_16, _hoisted_17];
             }),
             _: 1
             /* STABLE */
@@ -28786,7 +28882,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onClick: $options.submit
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_25, _hoisted_26];
+              return [_hoisted_18, _hoisted_19];
             }),
             _: 1
             /* STABLE */
@@ -59706,6 +59802,32 @@ module.exports = function getSideChannel() {
 
 /***/ }),
 
+/***/ "./resources/js/Components/OpeningHoursPicker.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/Components/OpeningHoursPicker.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OpeningHoursPicker.vue?vue&type=template&id=2054df10 */ "./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10");
+/* harmony import */ var _OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OpeningHoursPicker.vue?vue&type=script&lang=js */ "./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js");
+
+
+
+_OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Components/OpeningHoursPicker.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
 /***/ "./resources/js/Jetstream/ActionMessage.vue":
 /*!**************************************************!*\
   !*** ./resources/js/Jetstream/ActionMessage.vue ***!
@@ -60972,6 +61094,22 @@ _Welcome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file
 
 /***/ }),
 
+/***/ "./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OpeningHoursPicker.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js":
 /*!**************************************************************************!*\
   !*** ./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js ***!
@@ -61657,6 +61795,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Welcome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Welcome.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Welcome.vue?vue&type=script&lang=js");
  
+
+/***/ }),
+
+/***/ "./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10 ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OpeningHoursPicker.vue?vue&type=template&id=2054df10 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10");
+
 
 /***/ }),
 
