@@ -21409,10 +21409,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var makeRange = function makeRange(start, end) {
+  var result = [];
+
+  for (var i = start; i <= end; i++) {
+    result.push(i);
+  }
+
+  return result;
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    openingHours: {
+      type: Array,
+      "default": function _default() {
+        return [{
+          'day': "Monday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Tuesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Wednesday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Thursday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Friday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Saturday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }, {
+          'day': "Sunday",
+          'full_day_open': false,
+          "full_day_close": false,
+          "picker_disabled": false,
+          "open_at": null,
+          "close_at": null
+        }];
+      }
+    }
+  },
   data: function data() {
     return {
-      opening_hours: [{
+      defaultOpeningHours: [{
         'day': "Monday",
         'full_day_open': false,
         "full_day_close": false,
@@ -21464,20 +21531,40 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  emits: ['update:openingHours'],
+  computed: {
+    updatedOpeningHours: function updatedOpeningHours() {
+      return this.openingHours.length > 0 ? this.openingHours : this.defaultOpeningHours;
+    }
+  },
   methods: {
+    disabledSeconds: function disabledSeconds() {
+      return makeRange(1, 59);
+    },
     changedFullDayOpen: function changedFullDayOpen(data) {
       data.full_day_close = false;
       data.picker_disabled = data.full_day_open;
       this.resetOpeningHours(data);
+      this.update();
     },
     changedFullDayClose: function changedFullDayClose(data) {
       data.full_day_open = false;
       data.picker_disabled = data.full_day_close;
       this.resetOpeningHours(data);
+      this.update();
+    },
+    changedOpenTime: function changedOpenTime() {
+      this.update();
+    },
+    changedCloseTime: function changedCloseTime() {
+      this.update();
     },
     resetOpeningHours: function resetOpeningHours(data) {
       data.open_at = null;
       data.close_at = null;
+    },
+    update: function update() {
+      this.$emit('update:openingHours', this.updatedOpeningHours);
     }
   }
 });
@@ -23279,17 +23366,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
-
-var makeRange = function makeRange(start, end) {
-  var result = [];
-
-  for (var i = start; i <= end; i++) {
-    result.push(i);
-  }
-
-  return result;
-};
-
 var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_2__.Loader({
   apiKey: googleMapApiKey,
   version: 3.43,
@@ -23325,56 +23401,7 @@ var $markers = [];
         area_id: null,
         latitude: null,
         longitude: null,
-        opening_hours: [{
-          'day': "Monday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Tuesday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Wednesday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Thursday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Friday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Saturday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }, {
-          'day': "Sunday",
-          'full_day_open': false,
-          "full_day_close": false,
-          "picker_disabled": false,
-          "open_at": null,
-          "close_at": null
-        }]
+        opening_hours: []
       }
     };
   },
@@ -23387,9 +23414,6 @@ var $markers = [];
         preserveScroll: true
       });
     },
-    disabledSeconds: function disabledSeconds() {
-      return makeRange(1, 59);
-    },
     clearMarkers: function clearMarkers() {
       // Clear previous marker
       if ($markers.length > 0) {
@@ -23401,7 +23425,7 @@ var $markers = [];
       }
     },
     submit: function submit() {
-      this.$inertia.post(route('manage.stores.store'), this.form);
+      console.log(this.form.opening_hours); // this.$inertia.post(route('manage.stores.store'), this.form);
     },
     cancel: function cancel() {
       this.$inertia.get(route('manage.stores.index'));
@@ -23595,11 +23619,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "mx-auto border-collapse my-4"
-};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("thead", {
   "class": "border-b border-gray-300"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("th", {
   "class": "text-left p-3"
@@ -23615,8 +23636,11 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
-var _hoisted_3 = {
+var _hoisted_2 = {
   "class": "px-3 py-1"
+};
+var _hoisted_3 = {
+  "class": "px-3 py-1 text-center"
 };
 var _hoisted_4 = {
   "class": "px-3 py-1 text-center"
@@ -23627,20 +23651,19 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "px-3 py-1 text-center"
 };
-var _hoisted_7 = {
-  "class": "px-3 py-1 text-center"
-};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_switch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-switch");
 
   var _component_el_time_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-time-picker");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("table", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.opening_hours, function (data) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("table", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+    "class": "mx-auto border-collapse my-4"
+  }, _ctx.$attrs), [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.updatedOpeningHours, function (data) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
       key: data.day
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
       modelValue: data.full_day_open,
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return data.full_day_open = $event;
@@ -23650,7 +23673,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, null, 8
     /* PROPS */
-    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
+    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_switch, {
       modelValue: data.full_day_close,
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return data.full_day_close = $event;
@@ -23660,32 +23683,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }
     }, null, 8
     /* PROPS */
-    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+    , ["modelValue", "onUpdate:modelValue", "onChange"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
       modelValue: data.open_at,
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return data.open_at = $event;
       },
+      onChange: $options.changedOpenTime,
       format: "HH:mm",
       disabled: data.picker_disabled,
-      "disabled-seconds": _ctx.disabledSeconds,
+      "disabled-seconds": $options.disabledSeconds,
       placeholder: "Open time"
     }, null, 8
     /* PROPS */
-    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
+    , ["modelValue", "onUpdate:modelValue", "onChange", "disabled", "disabled-seconds"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_time_picker, {
       modelValue: data.close_at,
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return data.close_at = $event;
       },
+      onChange: $options.changedCloseTime,
       format: "HH:mm",
       disabled: data.picker_disabled,
-      "disabled-seconds": _ctx.disabledSeconds,
+      "disabled-seconds": $options.disabledSeconds,
       placeholder: "Close time"
     }, null, 8
     /* PROPS */
-    , ["modelValue", "onUpdate:modelValue", "disabled", "disabled-seconds"])])]);
+    , ["modelValue", "onUpdate:modelValue", "onChange", "disabled", "disabled-seconds"])])]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]);
+  ))])], 16
+  /* FULL_PROPS */
+  );
 }
 
 /***/ }),
@@ -28543,7 +28570,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse, {
             modelValue: $data.expanded,
-            "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+            "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
               return $data.expanded = $event;
             })
           }, {
@@ -28833,7 +28860,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                   return [_hoisted_14];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_picker), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_picker, {
+                    "opening-hours": $data.form.opening_hours,
+                    "onUpdate:opening-hours": _cache[12] || (_cache[12] = function ($event) {
+                      return $data.form.opening_hours = $event;
+                    })
+                  }, null, 8
+                  /* PROPS */
+                  , ["opening-hours"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
                     label: "Notes"
                   }, {
                     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -28843,7 +28877,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         placeholder: "Enter special notes",
                         name: "notes",
                         modelValue: $data.form.special_notes,
-                        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+                        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
                           return $data.form.special_notes = $event;
                         })
                       }, null, 8

@@ -1,5 +1,5 @@
 <template>
-    <table class="mx-auto border-collapse my-4">
+    <table class="mx-auto border-collapse my-4" v-bind="$attrs">
         <thead class="border-b border-gray-300">
             <th class="text-left p-3">Day</th>
             <th class="text-left p-3">Open 24 Hours</th>
@@ -9,7 +9,7 @@
         </thead>
 
         <tbody>
-            <tr v-for="data in opening_hours" :key="data.day">
+            <tr v-for="data in updatedOpeningHours" :key="data.day">
                 <td class="px-3 py-1">{{ data.day }}</td>
                 <td class="px-3 py-1 text-center">
                     <el-switch
@@ -26,6 +26,7 @@
                 <td class="px-3 py-1 text-center">
                     <el-time-picker
                         v-model="data.open_at"
+                        @change="changedOpenTime"
                         format="HH:mm"
                         :disabled="data.picker_disabled"
                         :disabled-seconds="disabledSeconds"
@@ -35,6 +36,7 @@
                 <td class="px-3 py-1 text-center">
                     <el-time-picker
                         v-model="data.close_at"
+                        @change="changedCloseTime"
                         format='HH:mm'
                         :disabled="data.picker_disabled"
                         :disabled-seconds="disabledSeconds"
@@ -47,10 +49,85 @@
 </template>
 
 <script>
+    const makeRange = (start, end) => {
+        const result = [];
+
+        for (let i = start; i <= end; i++) {
+            result.push(i);
+        }
+
+        return result;
+    }
+
     export default {
+        props: {
+            openingHours: {
+                type: Array,
+                default() {
+                    return [
+                        {
+                            'day': "Monday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Tuesday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Wednesday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Thursday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Friday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Saturday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        },
+                        {
+                            'day': "Sunday",
+                            'full_day_open': false,
+                            "full_day_close": false,
+                            "picker_disabled": false,
+                            "open_at": null,
+                            "close_at": null
+                        }
+                    ];
+                }
+            }
+        },
         data() {
             return {
-                opening_hours: [
+                defaultOpeningHours: [
                     {
                         'day': "Monday",
                         'full_day_open': false,
@@ -110,20 +187,40 @@
                 ]
             }
         },
+        emits: ['update:openingHours'],
+        computed: {
+            updatedOpeningHours() {
+                return this.openingHours.length > 0 ? this.openingHours : this.defaultOpeningHours;
+            }
+        },
         methods: {
+            disabledSeconds() {
+                return makeRange(1, 59);
+            },
             changedFullDayOpen(data) {
                 data.full_day_close = false;
                 data.picker_disabled = data.full_day_open;
                 this.resetOpeningHours(data);
+                this.update();
             },
             changedFullDayClose(data) {
                 data.full_day_open = false;
                 data.picker_disabled = data.full_day_close;
                 this.resetOpeningHours(data);
+                this.update();
+            },
+            changedOpenTime() {
+                this.update();
+            },
+            changedCloseTime() {
+                this.update();
             },
             resetOpeningHours(data) {
                 data.open_at = null;
                 data.close_at = null;
+            },
+            update() {
+                this.$emit('update:openingHours', this.updatedOpeningHours);
             }
         }
     }

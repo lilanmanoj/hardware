@@ -103,7 +103,7 @@
                                     <h2><i class="el-icon-alarm-clock"></i> Opening Hours</h2>
                                 </template>
 
-                                <opening-hours-picker></opening-hours-picker>
+                                <opening-hours-picker v-model:opening-hours="form.opening_hours"></opening-hours-picker>
 
                                 <el-form-item label="Notes">
                                     <el-input type="textarea" :rows="2" placeholder="Enter special notes" name="notes" v-model="form.special_notes"></el-input>
@@ -130,16 +130,6 @@
     import pick from 'lodash/pick';
     
     const googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
-
-    const makeRange = (start, end) => {
-        const result = [];
-
-        for (let i = start; i <= end; i++) {
-            result.push(i);
-        }
-
-        return result;
-    }
     
     const mapLoader = new Loader({
         apiKey: googleMapApiKey,
@@ -178,64 +168,7 @@
                     area_id: null,
                     latitude: null,
                     longitude: null,
-                    opening_hours: [
-                        {
-                            'day': "Monday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Tuesday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Wednesday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Thursday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Friday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Saturday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        },
-                        {
-                            'day': "Sunday",
-                            'full_day_open': false,
-                            "full_day_close": false,
-                            "picker_disabled": false,
-                            "open_at": null,
-                            "close_at": null
-                        }
-                    ]
+                    opening_hours: []
                 }
             }
         },
@@ -243,9 +176,6 @@
             districtChanged() {
                 let district = pick(this.form, 'district_id');
                 this.$inertia.get(this.route('manage.stores.create'), district, { replace: true, preserveState: true, preserveScroll: true });
-            },
-            disabledSeconds() {
-                return makeRange(1, 59);
             },
             clearMarkers() {
                 // Clear previous marker
@@ -258,7 +188,8 @@
                 }
             },
             submit() {
-                this.$inertia.post(route('manage.stores.store'), this.form);
+                console.log(this.form.opening_hours);
+                // this.$inertia.post(route('manage.stores.store'), this.form);
             },
             cancel() {
                 this.$inertia.get(route('manage.stores.index'));
