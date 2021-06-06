@@ -9,7 +9,7 @@
         </thead>
 
         <tbody>
-            <tr v-for="data in updatedOpeningHours" :key="data.day">
+            <tr v-for="data in computedOpeningHours" :key="data.day">
                 <td class="px-3 py-1">{{ data.day }}</td>
                 <td class="px-3 py-1 text-center">
                     <el-switch
@@ -189,7 +189,7 @@
         },
         emits: ['update:openingHours'],
         computed: {
-            updatedOpeningHours() {
+            computedOpeningHours() {
                 return this.openingHours.length > 0 ? this.openingHours : this.defaultOpeningHours;
             }
         },
@@ -220,7 +220,7 @@
                 data.close_at = null;
             },
             update() {
-                this.$emit('update:openingHours', this.updatedOpeningHours);
+                this.$emit('update:openingHours', this.computedOpeningHours);
             }
         }
     }
