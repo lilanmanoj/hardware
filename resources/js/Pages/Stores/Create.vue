@@ -83,19 +83,7 @@
                                     </el-form-item>
                                 </div>
 
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2">
-                                    <input ref="placesAutocomplete" type="text" placeholder="Search place" class="w-full">
-                                </div>
-
-                                <li class="mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full">
-                                    <i class="el-icon-info"></i> Click <strong>on map</strong> to place marker (<i class="el-icon-location-information"></i>) to mark the store location!
-                                </li>
-
-                                <div ref="map" class="mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"></div>
-
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right">
-                                    <el-button type="danger" icon="el-icon-delete-location" @click="clearMarkers">Remove Markers</el-button>
-                                </div>
+                                <store-locator v-model:latitude="form.latitude" v-model:longitude="form.longitude"></store-locator>
                             </el-collapse-item>
                         
                             <el-collapse-item name="opening_hours">
@@ -126,33 +114,32 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout';
     import OpeningHoursPicker from '@/Components/OpeningHoursPicker';
-    import { Loader } from '@googlemaps/js-api-loader';
+    import StoreLocator from '@/Components/StoreLocator';
     import pick from 'lodash/pick';
-    
-    const googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
-    
-    const mapLoader = new Loader({
-        apiKey: googleMapApiKey,
-        version: 3.43,
-        libraries: ["places"]
-    });
-
-    let $map;
-    let $markers = [];
 
     export default {
         components: {
             AppLayout,
-            OpeningHoursPicker
+            OpeningHoursPicker,
+            StoreLocator
         },
         props: {
-            districts: Object,
-            areas: Object
+            districts: {
+                type: Object,
+                default() {
+                    return [];
+                }
+            },
+            areas: {
+                type: Object,
+                default() {
+                    return [];
+                }
+            }
         },
         data() {
             return {
                 expanded: [ 'general_details', 'opening_hours' ],
-                place: null,
                 form: {
                     code: '',
                     name: '',
@@ -177,83 +164,12 @@
                 let district = pick(this.form, 'district_id');
                 this.$inertia.get(this.route('manage.stores.create'), district, { replace: true, preserveState: true, preserveScroll: true });
             },
-            clearMarkers() {
-                // Clear previous marker
-                if ($markers.length > 0) {
-                    for (let i = 0; i < $markers.length; i++) {
-                        $markers[i].setMap(null);
-                    }
-
-                    $markers = [];
-                }
-            },
             submit() {
-                console.log(this.form.opening_hours);
-                // this.$inertia.post(route('manage.stores.store'), this.form);
+                this.$inertia.post(route('manage.stores.store'), this.form);
             },
             cancel() {
                 this.$inertia.get(route('manage.stores.index'));
             }
-        },
-        mounted: function () {
-            this.$nextTick(function () {
-                mapLoader.load().then(() => {
-                    $map = new google.maps.Map(this.$refs.map, {
-                        center: { lat: 6.8784116, lng: 79.9405166 },
-                        zoom: 10
-                    });
-
-                    $map.addListener("click", (e) => {
-                        $map.setCenter(e.latLng);
-                        $map.setZoom(20);
-
-                        this.clearMarkers();
-
-                        // Set new marker
-                        const marker = new google.maps.Marker({
-                            position: e.latLng,
-                            map: $map,
-                            title: "Store location"
-                        });
-
-                        this.form.latitude = e.latLng.lat();
-                        this.form.longitude = e.latLng.lng();
-
-                        $markers.push(marker);
-                    });
-
-                    const autocompleteInput = this.$refs.placesAutocomplete;
-                    const autocompleteOptions = {
-                        fields: ["place_id", "formatted_address", "geometry", "icon", "name"],
-                    };
-
-                    const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, autocompleteOptions);
-
-                    autocomplete.addListener("place_changed", () => {
-                        const selectedPlace = autocomplete.getPlace();
-                        const selectedPlaceLat = selectedPlace.geometry.location.lat();
-                        const selectedPlaceLng = selectedPlace.geometry.location.lng();
-                        const selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
-
-                        $map.setCenter(selectedPlaceLatLng);
-                        $map.setZoom(20);
-
-                        this.clearMarkers();
-
-                        // Set new marker
-                        const marker = new google.maps.Marker({
-                            position: selectedPlaceLatLng,
-                            map: $map,
-                            title: "Store location"
-                        });
-
-                        this.form.latitude = selectedPlaceLat;
-                        this.form.longitude = selectedPlaceLng;
-
-                        $markers.push(marker);
-                    });
-                });
-            });
         }
     }
 </script>

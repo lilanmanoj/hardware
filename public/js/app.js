@@ -21533,7 +21533,7 @@ var makeRange = function makeRange(start, end) {
   },
   emits: ['update:openingHours'],
   computed: {
-    updatedOpeningHours: function updatedOpeningHours() {
+    computedOpeningHours: function computedOpeningHours() {
       return this.openingHours.length > 0 ? this.openingHours : this.defaultOpeningHours;
     }
   },
@@ -21564,8 +21564,193 @@ var makeRange = function makeRange(start, end) {
       data.close_at = null;
     },
     update: function update() {
-      this.$emit('update:openingHours', this.updatedOpeningHours);
+      this.$emit('update:openingHours', this.computedOpeningHours);
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js ***!
+  \******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
+
+var googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
+var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_0__.Loader({
+  apiKey: googleMapApiKey,
+  version: 3.43,
+  libraries: ["places"]
+});
+var $defaultZoomLevel = 10;
+var $interactiveZoomLevel = 18;
+var $map;
+var $markers = [];
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    latitude: {
+      type: Number,
+      "default": function _default() {
+        return 6.8784116;
+      }
+    },
+    longitude: {
+      type: Number,
+      "default": function _default() {
+        return 79.9405166;
+      }
+    },
+    markCenter: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
+    searchable: {
+      type: Boolean,
+      "default": function _default() {
+        return true;
+      }
+    },
+    markable: {
+      type: Boolean,
+      "default": function _default() {
+        return true;
+      }
+    },
+    removable: {
+      type: Boolean,
+      "default": function _default() {
+        return true;
+      }
+    }
+  },
+  emits: ['update:latitude', 'update:longitude'],
+  data: function data() {
+    return {
+      defaultLat: 6.8784116,
+      defaultLng: 79.9405166,
+      updatedLat: this.computedLatitude,
+      updatedLng: this.computedLongitude
+    };
+  },
+  computed: {
+    computedLatitude: function computedLatitude() {
+      return this.latitude > 0 && this.latitude != this.defaultLat ? this.latitude : this.defaultLat;
+    },
+    computedLongitude: function computedLongitude() {
+      return this.longitude > 0 && this.longitude != this.defaultLng ? this.longitude : this.defaultLng;
+    }
+  },
+  methods: {
+    clearMarkers: function clearMarkers() {
+      if (this.removable) {
+        // Clear previous marker
+        if ($markers.length > 0) {
+          for (var i = 0; i < $markers.length; i++) {
+            $markers[i].setMap(null);
+          }
+
+          $markers = [];
+        }
+
+        this.updatedLat = this.updatedLng = null;
+        this.update();
+      }
+    },
+    update: function update() {
+      this.$emit('update:latitude', this.updatedLat);
+      this.$emit('update:longitude', this.updatedLng);
+    }
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      var _this = this;
+
+      mapLoader.load().then(function () {
+        $map = new google.maps.Map(_this.$refs.map, {
+          center: {
+            lat: _this.computedLatitude,
+            lng: _this.computedLongitude
+          },
+          zoom: $defaultZoomLevel
+        });
+
+        if (_this.markCenter) {
+          $map.setZoom($interactiveZoomLevel);
+          var centerLatLng = new google.maps.LatLng(_this.computedLatitude, _this.computedLongitude); // Set new marker
+
+          var marker = new google.maps.Marker({
+            position: centerLatLng,
+            map: $map,
+            title: "Store location!"
+          });
+          $markers.push(marker);
+        }
+
+        if (_this.markable) {
+          $map.addListener("click", function (e) {
+            $map.setCenter(e.latLng);
+            $map.setZoom($interactiveZoomLevel);
+
+            _this.clearMarkers(); // Set new marker
+
+
+            var marker = new google.maps.Marker({
+              position: e.latLng,
+              map: $map,
+              title: "Marked location!"
+            });
+            _this.updatedLat = e.latLng.lat();
+            _this.updatedLng = e.latLng.lng();
+
+            _this.update();
+
+            $markers.push(marker);
+          });
+        }
+
+        var autocompleteInput = _this.$refs.placesAutocomplete;
+        var autocompleteOptions = {
+          fields: ["place_id", "formatted_address", "geometry", "icon", "name"]
+        };
+
+        if (_this.searchable) {
+          var autocomplete = new google.maps.places.Autocomplete(autocompleteInput, autocompleteOptions);
+          autocomplete.addListener("place_changed", function () {
+            var selectedPlace = autocomplete.getPlace();
+            var selectedPlaceLat = selectedPlace.geometry.location.lat();
+            var selectedPlaceLng = selectedPlace.geometry.location.lng();
+            var selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
+            $map.setCenter(selectedPlaceLatLng);
+            $map.setZoom($interactiveZoomLevel);
+
+            _this.clearMarkers(); // Set new marker
+
+
+            var marker = new google.maps.Marker({
+              position: selectedPlaceLatLng,
+              map: $map,
+              title: "Searched location!"
+            });
+            _this.updatedLat = selectedPlaceLat;
+            _this.updatedLng = selectedPlaceLng;
+
+            _this.update();
+
+            $markers.push(marker);
+          });
+        }
+      });
+    });
   }
 });
 
@@ -23358,34 +23543,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Components_OpeningHoursPicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/OpeningHoursPicker */ "./resources/js/Components/OpeningHoursPicker.vue");
-/* harmony import */ var _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @googlemaps/js-api-loader */ "./node_modules/@googlemaps/js-api-loader/dist/index.esm.js");
+/* harmony import */ var _Components_StoreLocator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/StoreLocator */ "./resources/js/Components/StoreLocator.vue");
 /* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/pick */ "./node_modules/lodash/pick.js");
 /* harmony import */ var lodash_pick__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_pick__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
 
-var googleMapApiKey = "AIzaSyA_T-I_mtlxGDS3qSewjGWoz4CIG9tN04c";
-var mapLoader = new _googlemaps_js_api_loader__WEBPACK_IMPORTED_MODULE_2__.Loader({
-  apiKey: googleMapApiKey,
-  version: 3.43,
-  libraries: ["places"]
-});
-var $map;
-var $markers = [];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
-    OpeningHoursPicker: _Components_OpeningHoursPicker__WEBPACK_IMPORTED_MODULE_1__.default
+    OpeningHoursPicker: _Components_OpeningHoursPicker__WEBPACK_IMPORTED_MODULE_1__.default,
+    StoreLocator: _Components_StoreLocator__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
-    districts: Object,
-    areas: Object
+    districts: {
+      type: Object,
+      "default": function _default() {
+        return [];
+      }
+    },
+    areas: {
+      type: Object,
+      "default": function _default() {
+        return [];
+      }
+    }
   },
   data: function data() {
     return {
       expanded: ['general_details', 'opening_hours'],
-      place: null,
       form: {
         code: '',
         name: '',
@@ -23414,78 +23601,12 @@ var $markers = [];
         preserveScroll: true
       });
     },
-    clearMarkers: function clearMarkers() {
-      // Clear previous marker
-      if ($markers.length > 0) {
-        for (var i = 0; i < $markers.length; i++) {
-          $markers[i].setMap(null);
-        }
-
-        $markers = [];
-      }
-    },
     submit: function submit() {
-      console.log(this.form.opening_hours); // this.$inertia.post(route('manage.stores.store'), this.form);
+      this.$inertia.post(route('manage.stores.store'), this.form);
     },
     cancel: function cancel() {
       this.$inertia.get(route('manage.stores.index'));
     }
-  },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      var _this = this;
-
-      mapLoader.load().then(function () {
-        $map = new google.maps.Map(_this.$refs.map, {
-          center: {
-            lat: 6.8784116,
-            lng: 79.9405166
-          },
-          zoom: 10
-        });
-        $map.addListener("click", function (e) {
-          $map.setCenter(e.latLng);
-          $map.setZoom(20);
-
-          _this.clearMarkers(); // Set new marker
-
-
-          var marker = new google.maps.Marker({
-            position: e.latLng,
-            map: $map,
-            title: "Store location"
-          });
-          _this.form.latitude = e.latLng.lat();
-          _this.form.longitude = e.latLng.lng();
-          $markers.push(marker);
-        });
-        var autocompleteInput = _this.$refs.placesAutocomplete;
-        var autocompleteOptions = {
-          fields: ["place_id", "formatted_address", "geometry", "icon", "name"]
-        };
-        var autocomplete = new google.maps.places.Autocomplete(autocompleteInput, autocompleteOptions);
-        autocomplete.addListener("place_changed", function () {
-          var selectedPlace = autocomplete.getPlace();
-          var selectedPlaceLat = selectedPlace.geometry.location.lat();
-          var selectedPlaceLng = selectedPlace.geometry.location.lng();
-          var selectedPlaceLatLng = new google.maps.LatLng(selectedPlaceLat, selectedPlaceLng);
-          $map.setCenter(selectedPlaceLatLng);
-          $map.setZoom(20);
-
-          _this.clearMarkers(); // Set new marker
-
-
-          var marker = new google.maps.Marker({
-            position: selectedPlaceLatLng,
-            map: $map,
-            title: "Store location"
-          });
-          _this.form.latitude = selectedPlaceLat;
-          _this.form.longitude = selectedPlaceLng;
-          $markers.push(marker);
-        });
-      });
-    });
   }
 });
 
@@ -23658,7 +23779,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("table", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
     "class": "mx-auto border-collapse my-4"
-  }, _ctx.$attrs), [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.updatedOpeningHours, function (data) {
+  }, _ctx.$attrs), [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.computedOpeningHours, function (data) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
       key: data.day
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.day), 1
@@ -23711,6 +23832,98 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128
   /* KEYED_FRAGMENT */
   ))])], 16
+  /* FULL_PROPS */
+  );
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0 ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  key: 0,
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2"
+};
+var _hoisted_2 = {
+  ref: "placesAutocomplete",
+  type: "text",
+  placeholder: "Search place",
+  "class": "w-full"
+};
+var _hoisted_3 = {
+  key: 1,
+  "class": "mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full"
+};
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-info"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Click ");
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("strong", null, "on map", -1
+/* HOISTED */
+);
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" to place marker (");
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "el-icon-location-information"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(") to mark the store location! ");
+
+var _hoisted_10 = {
+  ref: "map",
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"
+};
+var _hoisted_11 = {
+  key: 2,
+  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right"
+};
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Clear Markers");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+    "class": "map-container"
+  }, _ctx.$attrs), [$props.searchable ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", _hoisted_2, null, 512
+  /* NEED_PATCH */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.markable ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("li", _hoisted_3, [_hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, null, 512
+  /* NEED_PATCH */
+  ), $props.removable ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+    size: "small",
+    type: "danger",
+    icon: "el-icon-delete-location",
+    onClick: $options.clearMarkers,
+    plain: ""
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_12];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["onClick"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 16
   /* FULL_PROPS */
   );
 }
@@ -28480,61 +28693,32 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 var _hoisted_7 = {
   "class": "mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2"
 };
-var _hoisted_8 = {
-  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-4 py-2"
-};
-var _hoisted_9 = {
-  ref: "placesAutocomplete",
-  type: "text",
-  placeholder: "Search place",
-  "class": "w-full"
-};
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", {
-  "class": "mx-auto overflow-hidden block w-auto list-none bg-blue-200 lg:w-3/4 my-4 pt-1 px-4 shadow rounded-full"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "el-icon-info"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Click "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("strong", null, "on map"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" to place marker ("), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "el-icon-location-information"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(") to mark the store location! ")], -1
-/* HOISTED */
-);
-
-var _hoisted_11 = {
-  ref: "map",
-  "class": "mx-auto overflow-hidden w-full lg:w-3/4 h-80 rounded border border-gray-400"
-};
-var _hoisted_12 = {
-  "class": "mx-auto overflow-hidden w-full lg:w-3/4 my-2 text-center md:text-right"
-};
-
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Remove Markers");
-
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-alarm-clock"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opening Hours")], -1
 /* HOISTED */
 );
 
-var _hoisted_15 = {
+var _hoisted_9 = {
   "class": "mt-5 flex justify-between overflow-hidden"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-close el-icon-left text-red-500"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel");
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Create");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-input");
@@ -28547,11 +28731,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_el_select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-select");
 
-  var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
+  var _component_store_locator = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("store-locator");
 
   var _component_opening_hours_picker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("opening-hours-picker");
 
   var _component_el_collapse = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse");
+
+  var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
 
   var _component_el_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form");
 
@@ -28570,7 +28756,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse, {
             modelValue: $data.expanded,
-            "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+            "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
               return $data.expanded = $event;
             })
           }, {
@@ -28831,24 +29017,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     _: 1
                     /* STABLE */
 
-                  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", _hoisted_9, null, 512
-                  /* NEED_PATCH */
-                  )]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, null, 512
-                  /* NEED_PATCH */
-                  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
-                    type: "danger",
-                    icon: "el-icon-delete-location",
-                    onClick: $options.clearMarkers
-                  }, {
-                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                      return [_hoisted_13];
+                  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_store_locator, {
+                    latitude: $data.form.latitude,
+                    "onUpdate:latitude": _cache[12] || (_cache[12] = function ($event) {
+                      return $data.form.latitude = $event;
                     }),
-                    _: 1
-                    /* STABLE */
-
-                  }, 8
+                    longitude: $data.form.longitude,
+                    "onUpdate:longitude": _cache[13] || (_cache[13] = function ($event) {
+                      return $data.form.longitude = $event;
+                    })
+                  }, null, 8
                   /* PROPS */
-                  , ["onClick"])])];
+                  , ["latitude", "longitude"])];
                 }),
                 _: 1
                 /* STABLE */
@@ -28857,12 +29037,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 name: "opening_hours"
               }, {
                 title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_14];
+                  return [_hoisted_8];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_picker, {
                     "opening-hours": $data.form.opening_hours,
-                    "onUpdate:opening-hours": _cache[12] || (_cache[12] = function ($event) {
+                    "onUpdate:opening-hours": _cache[14] || (_cache[14] = function ($event) {
                       return $data.form.opening_hours = $event;
                     })
                   }, null, 8
@@ -28877,7 +29057,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         placeholder: "Enter special notes",
                         name: "notes",
                         modelValue: $data.form.special_notes,
-                        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+                        "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
                           return $data.form.special_notes = $event;
                         })
                       }, null, 8
@@ -28899,12 +29079,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
             type: "warning",
             onClick: $options.cancel
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_16, _hoisted_17];
+              return [_hoisted_10, _hoisted_11];
             }),
             _: 1
             /* STABLE */
@@ -28916,7 +29096,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             onClick: $options.submit
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_18, _hoisted_19];
+              return [_hoisted_12, _hoisted_13];
             }),
             _: 1
             /* STABLE */
@@ -59862,6 +60042,32 @@ _OpeningHoursPicker_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.def
 
 /***/ }),
 
+/***/ "./resources/js/Components/StoreLocator.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/Components/StoreLocator.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StoreLocator_vue_vue_type_template_id_09e705c0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StoreLocator.vue?vue&type=template&id=09e705c0 */ "./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0");
+/* harmony import */ var _StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StoreLocator.vue?vue&type=script&lang=js */ "./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js");
+
+
+
+_StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _StoreLocator_vue_vue_type_template_id_09e705c0__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Components/StoreLocator.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
 /***/ "./resources/js/Jetstream/ActionMessage.vue":
 /*!**************************************************!*\
   !*** ./resources/js/Jetstream/ActionMessage.vue ***!
@@ -61144,6 +61350,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StoreLocator_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StoreLocator.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js":
 /*!**************************************************************************!*\
   !*** ./resources/js/Jetstream/ActionMessage.vue?vue&type=script&lang=js ***!
@@ -61844,6 +62066,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OpeningHoursPicker_vue_vue_type_template_id_2054df10__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OpeningHoursPicker.vue?vue&type=template&id=2054df10 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/OpeningHoursPicker.vue?vue&type=template&id=2054df10");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0 ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StoreLocator_vue_vue_type_template_id_09e705c0__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StoreLocator_vue_vue_type_template_id_09e705c0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StoreLocator.vue?vue&type=template&id=09e705c0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/StoreLocator.vue?vue&type=template&id=09e705c0");
 
 
 /***/ }),
