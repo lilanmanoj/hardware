@@ -23714,16 +23714,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var lodash_pickBy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/pickBy */ "./node_modules/lodash/pickBy.js");
-/* harmony import */ var lodash_pickBy__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_pickBy__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
-/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/ConfirmationModal */ "./resources/js/Jetstream/ConfirmationModal.vue");
+/* harmony import */ var lodash_pickBy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/pickBy */ "./node_modules/lodash/pickBy.js");
+/* harmony import */ var lodash_pickBy__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_pickBy__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default
+    AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
+    ConfirmationModal: _Jetstream_ConfirmationModal__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     items: Object,
@@ -23731,6 +23734,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      show_delete_confirmation: false,
+      deletable_id: null,
       form: {
         query: this.query
       }
@@ -23738,8 +23743,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     form: {
-      handler: lodash_throttle__WEBPACK_IMPORTED_MODULE_2___default()(function () {
-        var query = lodash_pickBy__WEBPACK_IMPORTED_MODULE_1___default()(this.form);
+      handler: lodash_throttle__WEBPACK_IMPORTED_MODULE_3___default()(function () {
+        var query = lodash_pickBy__WEBPACK_IMPORTED_MODULE_2___default()(this.form);
         this.$inertia.get(this.route('manage.stores.index'), query, {
           replace: true,
           preserveState: true
@@ -23767,6 +23772,19 @@ __webpack_require__.r(__webpack_exports__);
     clickedEdit: function clickedEdit(idx) {
       var store_id = this.items.data[idx].id;
       this.$inertia.get(this.route('manage.stores.edit', store_id));
+    },
+    clickedDelete: function clickedDelete(idx) {
+      this.deletable_id = this.items.data[idx].id;
+      this.show_delete_confirmation = true;
+    },
+    closeDeleteConfirmation: function closeDeleteConfirmation() {
+      this.deletable_id = null;
+      this.show_delete_confirmation = false;
+    },
+    deleteResource: function deleteResource() {
+      if (this.deletable_id != null) this.$inertia["delete"](this.route('manage.stores.destroy', this.deletable_id));
+      this.deletable_id = null;
+      this.show_delete_confirmation = false;
     }
   }
 });
@@ -29755,6 +29773,19 @@ var _hoisted_13 = {
 var _hoisted_14 = {
   "class": "flex-grow-0"
 };
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h4", {
+  "class": "text-red-400"
+}, "Delete", -1
+/* HOISTED */
+);
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("This will delete data permanently, proceed?");
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("No");
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Yes");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-button");
 
@@ -29765,6 +29796,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_table = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-table");
 
   var _component_el_pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-pagination");
+
+  var _component_confirmation_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("confirmation-modal");
 
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
@@ -29847,15 +29880,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
               /* PROPS, DYNAMIC_SLOTS */
               , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
                 type: "text",
-                size: "small"
+                size: "small",
+                onClick: function onClick($event) {
+                  return $options.clickedDelete(scope.$index);
+                }
               }, {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [_hoisted_12];
                 }),
-                _: 1
-                /* STABLE */
+                _: 2
+                /* DYNAMIC */
 
-              })];
+              }, 1032
+              /* PROPS, DYNAMIC_SLOTS */
+              , ["onClick"])];
             }),
             _: 1
             /* STABLE */
@@ -29878,7 +29916,51 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onNextClick: $options.nextClicked
       }, null, 8
       /* PROPS */
-      , ["page-size", "total", "current-page", "onCurrentChange", "onPrevClick", "onNextClick"])])])])])])];
+      , ["page-size", "total", "current-page", "onCurrentChange", "onPrevClick", "onNextClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_confirmation_modal, {
+        show: $data.show_delete_confirmation
+      }, {
+        title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_15];
+        }),
+        content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_16];
+        }),
+        footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            size: "medium",
+            round: "",
+            onClick: $options.closeDeleteConfirmation
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_17];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+            type: "danger",
+            size: "medium",
+            round: "",
+            onClick: $options.deleteResource
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_18];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClick"])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["show"])])])])];
     }),
     _: 1
     /* STABLE */

@@ -57,7 +57,7 @@
                             width="120">
                                 <template #default="scope">
                                     <el-button round size="small" @click="clickedEdit(scope.$index)"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
-                                    <el-button type="text" size="small"><i class="el-icon-delete text-red-600"></i></el-button>
+                                    <el-button type="text" size="small" @click="clickedDelete(scope.$index)"><i class="el-icon-delete text-red-600"></i></el-button>
                                 </template>
                         </el-table-column>
                     </el-table>
@@ -76,6 +76,15 @@
                             </el-pagination>
                         </div>
                     </div>
+
+                    <confirmation-modal :show="show_delete_confirmation">
+                        <template v-slot:title><h4 class="text-red-400">Delete</h4></template>
+                        <template v-slot:content>This will delete data permanently, proceed?</template>
+                        <template v-slot:footer>
+                            <el-button size="medium" round @click="closeDeleteConfirmation">No</el-button>
+                            <el-button type="danger" size="medium" round @click="deleteResource">Yes</el-button>
+                        </template>
+                    </confirmation-modal>
                 </div>
             </div>
         </div>
@@ -84,12 +93,14 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout';
+    import ConfirmationModal from '@/Jetstream/ConfirmationModal';
     import pickBy from 'lodash/pickBy';
     import throttle from 'lodash/throttle';
 
     export default {
         components: {
-            AppLayout
+            AppLayout,
+            ConfirmationModal
         },
         props: {
             items: Object,
@@ -97,6 +108,8 @@
         },
         data() {
             return {
+                show_delete_confirmation: false,
+                deletable_id: null,
                 form: {
                     query: this.query
                 },
@@ -127,6 +140,21 @@
             clickedEdit(idx) {
                 const store_id = this.items.data[idx].id;
                 this.$inertia.get(this.route('manage.stores.edit', store_id));
+            },
+            clickedDelete(idx) {
+                this.deletable_id = this.items.data[idx].id;
+                this.show_delete_confirmation = true;
+            },
+            closeDeleteConfirmation() {
+                this.deletable_id = null;
+                this.show_delete_confirmation = false;
+            },
+            deleteResource() {
+                if (this.deletable_id != null)
+                    this.$inertia.delete(this.route('manage.stores.destroy', this.deletable_id));
+                
+                this.deletable_id = null;
+                this.show_delete_confirmation = false;
             }
         }
     }

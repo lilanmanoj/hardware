@@ -259,10 +259,22 @@ class StoreController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Store  $store
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Inertia
      */
     public function destroy(Store $store)
     {
-        //
+        try {
+            // Delete store
+            $store->delete();
+
+            // Detach existing opening hours
+            $store->openingHours()->delete();
+
+            session()->flash('flash.banner', 'Success - Store deleted successfully!');
+        } catch (Throwable $th) {
+            session()->flash('flash.banner', $th->getMessage());
+        }
+
+        return Redirect::route('manage.stores.index');
     }
 }
