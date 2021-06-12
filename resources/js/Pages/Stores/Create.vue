@@ -163,6 +163,7 @@
             districtChanged() {
                 let district = pick(this.form, 'district_id');
                 this.$inertia.get(this.route('manage.stores.create'), district, { replace: true, preserveState: true, preserveScroll: true });
+                this.form.area_id = null;
             },
             submit() {
                 this.$inertia.post(route('manage.stores.store'), this.form);

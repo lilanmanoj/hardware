@@ -23600,6 +23600,7 @@ __webpack_require__.r(__webpack_exports__);
         preserveState: true,
         preserveScroll: true
       });
+      this.form.area_id = null;
     },
     submit: function submit() {
       this.$inertia.post(route('manage.stores.store'), this.form);
