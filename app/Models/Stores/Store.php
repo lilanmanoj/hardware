@@ -53,11 +53,13 @@ class Store extends Model
         'fax_no',
         'email',
         'br_no',
+        'district_id',
+        'area_id',
         'special_notes',
         'status',
         'admin',
         'creator',
-        'opening_hours',
+        'openingHours',
         'district',
         'area'
     ];

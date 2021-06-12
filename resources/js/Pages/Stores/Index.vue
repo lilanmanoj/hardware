@@ -9,8 +9,6 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-                    <!-- {{ items }} -->
-
                     <div class="grid grid-cols-6 gap-4">
                         <div class="col-start-1">
                             <el-button round type="primary" size="medium" @click="addNew"><i class="el-icon-plus el-icon-left"></i> Add New</el-button>
@@ -58,7 +56,7 @@
                             label="Actions"
                             width="120">
                                 <template #default="scope">
-                                    <el-button round size="small"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
+                                    <el-button round size="small" @click="clickedEdit(scope.$index)"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
                                     <el-button type="text" size="small"><i class="el-icon-delete text-red-600"></i></el-button>
                                 </template>
                         </el-table-column>
@@ -85,9 +83,9 @@
 </template>
 
 <script>
-    import AppLayout from '@/Layouts/AppLayout'
-    import pickBy from 'lodash/pickBy'
-    import throttle from 'lodash/throttle'
+    import AppLayout from '@/Layouts/AppLayout';
+    import pickBy from 'lodash/pickBy';
+    import throttle from 'lodash/throttle';
 
     export default {
         components: {
@@ -125,6 +123,10 @@
             },
             nextClicked() {
                 this.$inertia.get(this.items.next_page_url);
+            },
+            clickedEdit(idx) {
+                const store_id = this.items.data[idx].id;
+                this.$inertia.get(this.route('manage.stores.edit', store_id));
             }
         }
     }

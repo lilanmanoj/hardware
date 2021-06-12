@@ -190,7 +190,7 @@
         emits: ['update:openingHours'],
         computed: {
             computedOpeningHours() {
-                return this.openingHours.length > 0 ? this.openingHours : this.defaultOpeningHours;
+                return (this.openingHours.length > 0) ? this.openingHours : this.defaultOpeningHours;
             }
         },
         methods: {

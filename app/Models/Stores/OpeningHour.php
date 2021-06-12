@@ -18,6 +18,10 @@ class OpeningHour extends Model
         'full_day_close'
     ];
 
+    protected $appends = [
+        'picker_disabled'
+    ];
+
     protected $visible = [
         'id',
         'day',
@@ -25,7 +29,16 @@ class OpeningHour extends Model
         'close_at',
         'full_day_open',
         'full_day_close',
-        'store'
+        'store',
+        'picker_disabled'
+    ];
+
+    protected $casts = [
+        'full_day_open' => 'boolean',
+        'full_day_close' => 'boolean',
+        'picker_disabled' => 'boolean',
+        'open_at' => 'datetime',
+        'close_at' => 'datetime'
     ];
 
     protected $searchable = [
@@ -33,6 +46,11 @@ class OpeningHour extends Model
             'opening_hours.day' => 10
         ]
     ];
+
+    public function getPickerDisabledAttribute()
+    {
+        return $this->full_day_open || $this->full_day_close;
+    }
 
     /**
      * Get the store that owns the opening_hours.
