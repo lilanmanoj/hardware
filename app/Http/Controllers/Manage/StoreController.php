@@ -143,7 +143,7 @@ class StoreController extends Controller
             $request->session()->flash('flash.banner', 'Success - Store created successfully!');
             $request->session()->flash('flash.bannerStyle', 'success');
         } catch (Throwable $th) {
-            $request->session()->flash('flash.banner', 'Failed - Something went wrong while creating store!');
+            $request->session()->flash('flash.banner', $th->getMessage());
             $request->session()->flash('flash.bannerStyle', 'danger');
         }
 
