@@ -157,11 +157,15 @@ class StoreController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Store  $store
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Inertia
      */
     public function show(Store $store)
     {
-        //
+        $data = [
+            'store' => $store->load(['district', 'area', 'openingHours'])
+        ];
+
+        return Inertia::render('Stores/Show', $data);
     }
 
     /**

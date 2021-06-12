@@ -54,8 +54,9 @@
                         <el-table-column
                             fixed="right"
                             label="Actions"
-                            width="120">
+                            width="180">
                                 <template #default="scope">
+                                    <el-button type="info" circle size="small" icon="el-icon-view" @click="clickedShow(scope.$index)"></el-button>
                                     <el-button round size="small" @click="clickedEdit(scope.$index)"><i class="el-icon-edit el-icon-left"></i> Edit</el-button>
                                     <el-button type="text" size="small" @click="clickedDelete(scope.$index)"><i class="el-icon-delete text-red-600"></i></el-button>
                                 </template>
@@ -78,9 +79,9 @@
                     </div>
 
                     <confirmation-modal :show="show_delete_confirmation">
-                        <template v-slot:title><h4 class="text-red-400">Delete</h4></template>
-                        <template v-slot:content>This will delete data permanently, proceed?</template>
-                        <template v-slot:footer>
+                        <template #title><h4 class="text-red-400">Delete</h4></template>
+                        <template #content>This will delete data permanently, proceed?</template>
+                        <template #footer>
                             <el-button size="medium" round @click="closeDeleteConfirmation">No</el-button>
                             <el-button type="danger" size="medium" round @click="deleteResource">Yes</el-button>
                         </template>
@@ -136,6 +137,10 @@
             },
             nextClicked() {
                 this.$inertia.get(this.items.next_page_url);
+            },
+            clickedShow(idx) {
+                const store_id = this.items.data[idx].id;
+                this.$inertia.get(this.route('manage.stores.show', store_id));
             },
             clickedEdit(idx) {
                 const store_id = this.items.data[idx].id;
