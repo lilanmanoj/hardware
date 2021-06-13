@@ -23713,6 +23713,12 @@ __webpack_require__.r(__webpack_exports__);
         return {};
       }
     },
+    states: {
+      type: Object,
+      "default": function _default() {
+        return [];
+      }
+    },
     districts: {
       type: Object,
       "default": function _default() {
@@ -23744,7 +23750,8 @@ __webpack_require__.r(__webpack_exports__);
         area_id: this.store.area_id,
         latitude: this.store.latitude,
         longitude: this.store.longitude,
-        opening_hours: this.store.opening_hours
+        opening_hours: this.store.opening_hours,
+        status: this.store.status
       }
     };
   },
@@ -29473,11 +29480,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_el_form_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form-item");
 
-  var _component_el_collapse_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse-item");
-
   var _component_el_option = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-option");
 
   var _component_el_select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-select");
+
+  var _component_el_collapse_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-collapse-item");
 
   var _component_store_locator = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("store-locator");
 
@@ -29504,7 +29511,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_collapse, {
             modelValue: $data.expanded,
-            "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+            "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
               return $data.expanded = $event;
             })
           }, {
@@ -29682,6 +29689,41 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     _: 1
                     /* STABLE */
 
+                  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                    label: "Status"
+                  }, {
+                    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_select, {
+                        modelValue: $data.form.status,
+                        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                          return $data.form.status = $event;
+                        }),
+                        placeholder: "Select status",
+                        "class": "w-full"
+                      }, {
+                        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+                          return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.states, function (status) {
+                            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_el_option, {
+                              key: status.id,
+                              label: status.name,
+                              value: status.id
+                            }, null, 8
+                            /* PROPS */
+                            , ["label", "value"]);
+                          }), 128
+                          /* KEYED_FRAGMENT */
+                          ))];
+                        }),
+                        _: 1
+                        /* STABLE */
+
+                      }, 8
+                      /* PROPS */
+                      , ["modelValue"])];
+                    }),
+                    _: 1
+                    /* STABLE */
+
                   })])];
                 }),
                 _: 1
@@ -29700,7 +29742,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_select, {
                         modelValue: $data.form.district_id,
-                        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+                        "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
                           return $data.form.district_id = $event;
                         }),
                         placeholder: "Select district",
@@ -29736,7 +29778,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_select, {
                         modelValue: $data.form.area_id,
-                        "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+                        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
                           return $data.form.area_id = $event;
                         }),
                         placeholder: "Select area",
@@ -29767,11 +29809,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
                   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_store_locator, {
                     latitude: $data.form.latitude,
-                    "onUpdate:latitude": _cache[12] || (_cache[12] = function ($event) {
+                    "onUpdate:latitude": _cache[13] || (_cache[13] = function ($event) {
                       return $data.form.latitude = $event;
                     }),
                     longitude: $data.form.longitude,
-                    "onUpdate:longitude": _cache[13] || (_cache[13] = function ($event) {
+                    "onUpdate:longitude": _cache[14] || (_cache[14] = function ($event) {
                       return $data.form.longitude = $event;
                     }),
                     "mark-center": true
@@ -29791,7 +29833,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_picker, {
                     "opening-hours": $data.form.opening_hours,
-                    "onUpdate:opening-hours": _cache[14] || (_cache[14] = function ($event) {
+                    "onUpdate:opening-hours": _cache[15] || (_cache[15] = function ($event) {
                       return $data.form.opening_hours = $event;
                     })
                   }, null, 8
@@ -29806,7 +29848,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                         placeholder: "Enter special notes",
                         name: "notes",
                         modelValue: $data.form.special_notes,
-                        "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+                        "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
                           return $data.form.special_notes = $event;
                         })
                       }, null, 8
@@ -30244,34 +30286,42 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 var _hoisted_6 = {
   "class": "grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4"
 };
+var _hoisted_7 = {
+  key: 0,
+  "class": "bg-green-200 border border-green-500 rounded-md font-bold text-center text-green-600 py-2 mb-5"
+};
+var _hoisted_8 = {
+  key: 1,
+  "class": "bg-yellow-200 border border-yellow-500 rounded-md font-bold text-center text-yellow-600 py-2 mb-5"
+};
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-map-location"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Location/Regional Information")], -1
 /* HOISTED */
 );
 
-var _hoisted_8 = {
+var _hoisted_10 = {
   "class": "mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2 grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-alarm-clock"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Opening Hours")], -1
 /* HOISTED */
 );
 
-var _hoisted_10 = {
+var _hoisted_12 = {
   "class": "mt-5 flex justify-end overflow-hidden"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "el-icon-check el-icon-left text-green-300"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Ok");
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Ok");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_el_form_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("el-form-item");
@@ -30422,7 +30472,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     _: 1
                     /* STABLE */
 
-                  })])];
+                  }), $props.store.status == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.store.status_text), 1
+                  /* TEXT */
+                  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.store.status_text), 1
+                  /* TEXT */
+                  ))])];
                 }),
                 _: 1
                 /* STABLE */
@@ -30431,10 +30485,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 name: "location_info"
               }, {
                 title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_7];
+                  return [_hoisted_9];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
+                  return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_form_item, {
                     label: "District",
                     "class": "bg-gray-200 rounded-md font-semibold text-black"
                   }, {
@@ -30476,7 +30530,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 name: "opening_hours"
               }, {
                 title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_9];
+                  return [_hoisted_11];
                 }),
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                   return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_opening_hours_viewer, {
@@ -30507,12 +30561,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
+          , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_el_button, {
             type: "primary",
             onClick: $options.ok
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-              return [_hoisted_11, _hoisted_12];
+              return [_hoisted_13, _hoisted_14];
             }),
             _: 1
             /* STABLE */

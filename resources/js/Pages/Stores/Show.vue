@@ -35,6 +35,16 @@
                                     <el-form-item label="Email" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.email }}</el-form-item>
 
                                     <el-form-item label="BR No" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.br_no }}</el-form-item>
+
+                                    <div
+                                        v-if="store.status == 1"
+                                        class="bg-green-200 border border-green-500 rounded-md font-bold text-center text-green-600 py-2 mb-5"
+                                    >{{ store.status_text }}</div>
+
+                                    <div
+                                        v-else
+                                        class="bg-yellow-200 border border-yellow-500 rounded-md font-bold text-center text-yellow-600 py-2 mb-5"
+                                    >{{ store.status_text }}</div>
                                 </div>
                             </el-collapse-item>
                             

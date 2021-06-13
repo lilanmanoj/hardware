@@ -186,6 +186,7 @@ class StoreController extends Controller
 
         $data = [
             'store' => $store->load('openingHours'),
+            'states' => Store::getStates(),
             'districts' => District::orderBy('name')->get(),
             'areas' => $areas
         ];
@@ -217,7 +218,8 @@ class StoreController extends Controller
                 'br_no',
                 'district_id',
                 'area_id',
-                'special_notes'
+                'special_notes',
+                'status'
             ]);
 
             // Update store

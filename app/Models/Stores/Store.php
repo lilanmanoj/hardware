@@ -85,6 +85,20 @@ class Store extends Model
         return ($this->status === Self::STATUS_APPROVED) ? "Approved" : "Pending";
     }
 
+    public static function getStates(): Array
+    {
+        return [
+            [
+                "id" => Self::STATUS_PENDING,
+                "name" =>"Pending"
+            ],
+            [
+                "id" => Self::STATUS_APPROVED,
+                "name" => "Approved"
+            ]
+        ];
+    }
+
     /**
      * Get the admin that owns the store.
      */

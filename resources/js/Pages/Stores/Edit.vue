@@ -53,6 +53,17 @@
                                     <el-form-item label="BR No">
                                         <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
                                     </el-form-item>
+
+                                    <el-form-item label="Status">
+                                        <el-select v-model="form.status" placeholder="Select status" class="w-full">
+                                            <el-option
+                                                v-for="status in states"
+                                                :key="status.id"
+                                                :label="status.name"
+                                                :value="status.id">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
                                 </div>
                             </el-collapse-item>
                             
@@ -132,6 +143,12 @@
                     return {};
                 }
             },
+            states: {
+                type: Object,
+                default() {
+                    return [];
+                }
+            },
             districts: {
                 type: Object,
                 default() {
@@ -163,7 +180,8 @@
                     area_id: this.store.area_id,
                     latitude: this.store.latitude,
                     longitude: this.store.longitude,
-                    opening_hours: this.store.opening_hours
+                    opening_hours: this.store.opening_hours,
+                    status: this.store.status
                 }
             }
         },
