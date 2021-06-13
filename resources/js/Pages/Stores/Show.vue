@@ -66,7 +66,7 @@
 
                                 <opening-hours-viewer :opening-hours="store.opening_hours"></opening-hours-viewer>
 
-                                <el-form-item label="Notes" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.special_notes }}</el-form-item>
+                                <el-form-item label="Notes" class="mt-6 bg-gray-200 rounded-md font-semibold text-black">{{ store.special_notes }}</el-form-item>
                             </el-collapse-item>
                             
                         </el-collapse>
