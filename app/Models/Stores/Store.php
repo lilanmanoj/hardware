@@ -14,8 +14,15 @@ class Store extends Model
     use HasFactory;
     use SearchableTrait;
 
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+
     protected $attributes = [
         'address_formatted' => ''
+    ];
+
+    protected $appends = [
+        'status_text'
     ];
 
     protected $fillable = [
@@ -57,6 +64,7 @@ class Store extends Model
         'area_id',
         'special_notes',
         'status',
+        'status_text',
         'admin',
         'creator',
         'openingHours',
@@ -71,6 +79,11 @@ class Store extends Model
             'stores.email' => 5
         ]
     ];
+
+    public function getStatusTextAttribute()
+    {
+        return ($this->status === Self::STATUS_APPROVED) ? "Approved" : "Pending";
+    }
 
     /**
      * Get the admin that owns the store.

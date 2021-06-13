@@ -49,6 +49,7 @@ class StoreController extends Controller
         $query = $request->input('query', '');
 
         $items = $this->model
+        ->with([ 'district', 'area' ])
         ->search($query)
         ->orderBy('created_at', 'desc')
         ->paginate()
@@ -113,7 +114,7 @@ class StoreController extends Controller
                 'special_notes'
             ]);
 
-            $data['status'] = 0;
+            $data['status'] = Store::STATUS_PENDING;
             $data['created_by'] = $user->id;
 
             // Create store

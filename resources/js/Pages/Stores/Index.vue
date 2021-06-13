@@ -35,21 +35,27 @@
                         <el-table-column
                             prop="name"
                             label="Name"
-                            width="200">
+                            width="220">
                         </el-table-column>
                         <el-table-column
-                            prop="address"
-                            label="Address">
-                        </el-table-column>
-                        <el-table-column
-                            prop="fixed_no"
-                            label="Phone"
-                            width="150">
+                            label="Area">
+                            <template #default="scope">
+                                <span v-if="scope.row.area != null" class="text-blue-600"><i class="el-icon-map-location"></i> {{ scope.row.area.name }}</span>
+                                <span v-else class="text-yellow-600">N/A</span>
+                            </template>
                         </el-table-column>
                         <el-table-column
                             prop="mobile_no"
                             label="Mobile"
                             width="150">
+                        </el-table-column>
+                        <el-table-column
+                            label="Status"
+                            width="100">
+                                <template #default="scope">
+                                    <el-tag v-if="scope.row.status == 1" size="small" type="success">{{ scope.row.status_text }}</el-tag>
+                                    <el-tag v-else size="small" type="warning">{{ scope.row.status_text }}</el-tag>
+                                </template>
                         </el-table-column>
                         <el-table-column
                             fixed="right"
