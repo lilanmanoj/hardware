@@ -17,41 +17,43 @@
                                     <h2><i class="el-icon-tickets"></i> General Details</h2>
                                 </template>
 
-                                <el-form-item label="Code">
-                                    <el-input placeholder="Enter store code" name="code" v-model="form.code"></el-input>
-                                </el-form-item>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4">
+                                    <el-form-item label="Code">
+                                        <el-input placeholder="Enter store code" name="code" v-model="form.code"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Name">
-                                    <el-input placeholder="Enter store name" name="name" v-model="form.name"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Name">
+                                        <el-input placeholder="Enter store name" name="name" v-model="form.name"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Description">
-                                    <el-input type="textarea" :rows="2" placeholder="Enter additional information" name="description" v-model="form.description"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Description">
+                                        <el-input type="textarea" :rows="2" placeholder="Enter additional information" name="description" v-model="form.description"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Address">
-                                    <el-input type="textarea" :rows="2" placeholder="Enter store address" name="address" v-model="form.address"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Address">
+                                        <el-input type="textarea" :rows="2" placeholder="Enter store address" name="address" v-model="form.address"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Phone No (Fixed)">
-                                    <el-input placeholder="Enter fixed no" name="fixed_no" v-model="form.fixed_no"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Phone No (Fixed)">
+                                        <el-input placeholder="Enter fixed no" name="fixed_no" v-model="form.fixed_no"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Phone No (Mobile)">
-                                    <el-input placeholder="Enter mobile no" name="mobile_no" v-model="form.mobile_no"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Phone No (Mobile)">
+                                        <el-input placeholder="Enter mobile no" name="mobile_no" v-model="form.mobile_no"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Fax No">
-                                    <el-input placeholder="Enter fax no" name="fax_no" v-model="form.fax_no"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Fax No">
+                                        <el-input placeholder="Enter fax no" name="fax_no" v-model="form.fax_no"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="Email">
-                                    <el-input placeholder="Enter email" name="email" v-model="form.email"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="Email">
+                                        <el-input placeholder="Enter email" name="email" v-model="form.email"></el-input>
+                                    </el-form-item>
 
-                                <el-form-item label="BR No">
-                                    <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
-                                </el-form-item>
+                                    <el-form-item label="BR No">
+                                        <el-input placeholder="Enter BR no" name="br_no" v-model="form.br_no"></el-input>
+                                    </el-form-item>
+                                </div>
                             </el-collapse-item>
                             
                             <el-collapse-item name="location_info">
@@ -59,7 +61,7 @@
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
 
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2">
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2 grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4">
                                     <el-form-item label="District">
                                         <el-select v-model="form.district_id" placeholder="Select district" class="w-full" @change="districtChanged">
                                             <el-option

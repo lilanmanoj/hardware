@@ -17,23 +17,25 @@
                                     <h2><i class="el-icon-tickets"></i> General Details</h2>
                                 </template>
 
-                                <el-form-item label="Code">{{ store.code }}</el-form-item>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4">
+                                    <el-form-item label="Code" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.code }}</el-form-item>
 
-                                <el-form-item label="Name">{{ store.name }}</el-form-item>
+                                    <el-form-item label="Name" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.name }}</el-form-item>
 
-                                <el-form-item label="Description">{{ store.description }}</el-form-item>
+                                    <el-form-item label="Description" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.description }}</el-form-item>
 
-                                <el-form-item label="Address">{{ store.address }}</el-form-item>
+                                    <el-form-item label="Address" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.address }}</el-form-item>
 
-                                <el-form-item label="Phone No (Fixed)">{{ store.fixed_no }}</el-form-item>
+                                    <el-form-item label="Phone No (Fixed)" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.fixed_no }}</el-form-item>
 
-                                <el-form-item label="Phone No (Mobile)">{{ store.mobile_no }}</el-form-item>
+                                    <el-form-item label="Phone No (Mobile)" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.mobile_no }}</el-form-item>
 
-                                <el-form-item label="Fax No">{{ store.fax_no }}</el-form-item>
+                                    <el-form-item label="Fax No" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.fax_no }}</el-form-item>
 
-                                <el-form-item label="Email">{{ store.email }}</el-form-item>
+                                    <el-form-item label="Email" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.email }}</el-form-item>
 
-                                <el-form-item label="BR No">{{ store.br_no }}</el-form-item>
+                                    <el-form-item label="BR No" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.br_no }}</el-form-item>
+                                </div>
                             </el-collapse-item>
                             
                             <el-collapse-item name="location_info">
@@ -41,10 +43,10 @@
                                     <h2><i class="el-icon-map-location"></i> Location/Regional Information</h2>
                                 </template>
 
-                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2">
-                                    <el-form-item label="District">{{ (store.district != null) ? store.district.name : "N/A" }}</el-form-item>
+                                <div class="mx-auto overflow-hidden w-full lg:w-3/4 mt-4 py-2 grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-4">
+                                    <el-form-item label="District" class="bg-gray-200 rounded-md font-semibold text-black">{{ (store.district != null) ? store.district.name : "N/A" }}</el-form-item>
 
-                                    <el-form-item label="Area">{{ (store.area != null) ? store.area.name : "N/A" }}</el-form-item>
+                                    <el-form-item label="Area" class="bg-gray-200 rounded-md font-semibold text-black">{{ (store.area != null) ? store.area.name : "N/A" }}</el-form-item>
                                 </div>
 
                                 <store-locator 
@@ -62,9 +64,9 @@
                                     <h2><i class="el-icon-alarm-clock"></i> Opening Hours</h2>
                                 </template>
 
-                                <opening-hours-picker :opening-hours="store.opening_hours"></opening-hours-picker>
+                                <opening-hours-viewer :opening-hours="store.opening_hours"></opening-hours-viewer>
 
-                                <el-form-item label="Notes">{{ store.special_notes }}</el-form-item>
+                                <el-form-item label="Notes" class="bg-gray-200 rounded-md font-semibold text-black">{{ store.special_notes }}</el-form-item>
                             </el-collapse-item>
                             
                         </el-collapse>
@@ -81,13 +83,13 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout';
-    import OpeningHoursPicker from '@/Components/OpeningHoursPicker';
+    import OpeningHoursViewer from '@/Components/OpeningHoursViewer';
     import StoreLocator from '@/Components/StoreLocator';
 
     export default {
         components: {
             AppLayout,
-            OpeningHoursPicker,
+            OpeningHoursViewer,
             StoreLocator
         },
         props: {
