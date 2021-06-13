@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Inertia\Inertia;
-use Illuminate\Support\Arr;
 use Throwable;
 
 class StoreController extends Controller
@@ -265,7 +264,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Inertia\Inertia
      */
-    public function destroy(Store $store)
+    public function destroy(Store $store, Request $request)
     {
         try {
             // Delete store
@@ -274,9 +273,11 @@ class StoreController extends Controller
             // Detach existing opening hours
             $store->openingHours()->delete();
 
-            session()->flash('flash.banner', 'Success - Store deleted successfully!');
+            $request->session()->flash('flash.banner', 'Success - Store deleted successfully!');
+            $request->session()->flash('flash.bannerStyle', 'success');
         } catch (Throwable $th) {
-            session()->flash('flash.banner', $th->getMessage());
+            $request->session()->flash('flash.banner', $th->getMessage());
+            $request->session()->flash('flash.bannerStyle', 'danger');
         }
 
         return Redirect::route('manage.stores.index');
